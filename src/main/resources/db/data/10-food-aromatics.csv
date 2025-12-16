@@ -1,0 +1,7 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Green Onion,Aromatic,Onion,Sliced scallions,Mild and fresh,true,false,2,3,1,3
+Raw Garlic,Aromatic,Garlic,Minced raw garlic,Sharp and spicy,false,false,3,5,1,5
+Red Onion,Aromatic,Onion,Thin sliced red onion,Sharp and bright,true,false,3,5,2,4
+Shallot,Aromatic,Shallot,Minced shallot,Mild and refined,true,false,2,3,1,4
+White Onion,Aromatic,Onion,Diced white onion,Clean and crisp,false,false,3,5,1,4
+Yellow Onion,Aromatic,Onion,Diced yellow onion,Sweet when cooked,false,false,3,4,2,4

@@ -1,0 +1,7 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+King Oyster,Mushroom,Cooked,Seared trumpet slices,Dense and tender,false,false,3,3,1,4
+Morel,Mushroom,Cooked,Sauteed morels,Earthy and nutty,false,false,2,4,1,5
+Oyster Mushroom,Mushroom,Raw,Torn oyster mushrooms,Silky and delicate,false,false,2,2,1,3
+Portobello,Mushroom,Cooked,Sliced roasted caps,Meaty and rich,true,false,2,4,1,5
+Shiitake,Mushroom,Cooked,Pan-sauteed shiitake,Savory and aromatic,true,false,2,4,1,5
+White Button,Mushroom,Raw,Sliced button mushrooms,Mild and tender,true,false,2,2,1,3

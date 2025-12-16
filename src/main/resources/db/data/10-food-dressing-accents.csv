@@ -1,0 +1,10 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Anchovy Paste,Dressing Accent,Umami,Smooth anchovy,Intense umami,false,false,1,5,1,5
+Capers,Dressing Accent,Briny,Pickled capers,Salty and briny,false,false,2,4,1,4
+Dijon Mustard,Dressing Accent,Emulsifier,Smooth dijon,Sharp and creamy,true,false,1,4,1,4
+Greek Yogurt Base,Dressing Accent,Texture,Plain thick yogurt,Tangy and creamy,false,false,1,3,1,3
+Mayonnaise,Dressing Accent,Texture,Creamy mayo,Rich emulsion,false,false,1,2,1,3
+Olives Kalamata,Dressing Accent,Briny,Chopped kalamata,Fruity and briny,false,false,2,3,1,4
+Soy Sauce,Dressing Accent,Umami,Naturally brewed soy,Salty umami,true,false,1,4,1,5
+Whole Grain Mustard,Dressing Accent,Emulsifier,Seedy mustard,Textured and tangy,false,false,2,4,1,4
+Worcestershire,Dressing Accent,Umami,Worcestershire sauce,Complex savory,false,false,1,4,2,5

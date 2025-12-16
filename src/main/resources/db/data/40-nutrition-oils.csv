@@ -1,0 +1,8 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+AVOCADO-OIL,"Avocado Oil","Buttery avocado oil","High smoke point",0,100,0,0,0,0,3
+CHILI-OIL,"Chili Oil","Spicy chili oil","Heat and color",0,100,0,0,0,0,14
+COCONUT-OIL,"Coconut Oil","Virgin coconut oil","Sweet and tropical",0,100,0,0,0,0,0
+EXTRA-VIRGIN-OL,"Extra Virgin Olive Oil","Fruity olive oil","Mediterranean staple",0,100,0,0,0,0,14
+FLAXSEED-OIL,"Flaxseed Oil","Earthy flax oil","Omega-3 rich",0,100,0,0,0,0,0
+HAZELNUT-OIL,"Hazelnut Oil","Sweet hazelnut oil","Great with fruit salads",0,100,0,0,0,0,47
+SUNFLOWER-OIL,"Sunflower Oil","Mild sunflower oil","Affordable versatile",0,100,0,0,0,0,41

@@ -1,0 +1,14 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+BLACK-BEANS,"Black Beans","Seasoned black beans","Creamy and mild",24,1,9,0,8,0,0
+CANNED-TUNA,"Canned Tuna","Flaked light tuna","Mix with olive oil",0,1,26,0,0,2,1
+CHICKPEAS,"Chickpeas","Firm garbanzo beans","Great with lemon and herbs",27,6,19,5,8,0,1
+CRAB-MEAT,"Crab Meat","Fresh crab meat","Delicate and sweet",0,1,19,0,0,0,2
+EDAMAME,"Edamame","Shelled soybeans","Tender and buttery",8,5,11,2,5,0,0
+FIRM-TOFU,"Firm Tofu","Cubed firm tofu","Neutral and versatile",2,5,8,1,0,0,0
+GRILLED-CHICKEN,"Grilled Chicken","Sliced chicken breast","Lean and mild",0,4,31,0,0,0,0
+GRILLED-SALMON,"Grilled Salmon","Flaked salmon","Omega-3 rich",0,13,25,0,0,11,2
+GRILLED-SHRIMP,"Grilled Shrimp","Chilled shrimp","Firm and sweet",0,1,24,0,0,0,2
+HARD-BOILED-EGG,"Hard Boiled Egg","Sliced eggs","Rich and creamy",1,11,13,1,0,2,1
+QUINOA,"Quinoa","Fluffy quinoa","High-protein grain",21,2,4,1,3,0,0
+ROASTED-TURKEY,"Roasted Turkey","Sliced turkey breast","Tender and mild",0,2,29,0,0,0,0
+SLICED-STEAK,"Sliced Steak","Thin flank steak","Savory and tender",0,8,26,0,0,0,0

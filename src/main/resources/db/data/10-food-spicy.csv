@@ -1,0 +1,8 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Banana Pepper,Spicy,Fresh Pepper,Mild banana pepper rings,Tangy and sweet,false,false,3,2,2,2
+Black Pepper,Spicy,Dried,Fresh ground pepper,Universal warmth,false,false,1,3,1,3
+Fresh Jalapeno,Spicy,Fresh Pepper,Sliced fresh jalapeno,Medium heat,false,false,3,5,1,3
+Fresh Serrano,Spicy,Fresh Pepper,Minced serrano,Sharper green heat,false,false,3,5,1,3
+Pepperoncini,Spicy,Pickled,Mild pepperoncini,Zesty and mild,false,false,2,3,1,3
+Pickled Jalapeno,Spicy,Pickled,Pickled jalapeno slices,Tangy medium heat,false,false,2,4,1,3
+Red Pepper Flakes,Spicy,Dried,Crushed red pepper,Classic balanced heat,false,false,2,5,1,3

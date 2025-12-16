@@ -1,21 +1,17 @@
 code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
-FETA-CHEESE,"Feta Cheese","Crumbled feta","Tangy and salty",1,9,7,0,0,0,0
-GOAT-CHEESE,"Goat Cheese","Creamy goat cheese","Mild tang",1,9,7,0,0,0,0
-BLUE-CHEESE,"Blue Cheese","Crumbled blue cheese","Bold and pungent",1,9,7,0,0,0,0
-GORGONZOLA,"Gorgonzola","Italian blue cheese","Creamy and sharp",1,9,7,0,0,0,0
-FRESH-MOZZARELLA,"Fresh Mozzarella","Pearl mozzarella","Mild and milky",1,9,7,0,0,0,0
-BURRATA,"Burrata","Creamy burrata","Luxurious center",1,9,7,0,0,0,0
-RICOTTA-SALATA,"Ricotta Salata","Crumbled ricotta salata","Salty and firm",1,9,7,0,0,0,0
-PARMESAN,"Parmesan","Shaved parmesan","Nutty and sharp",1,9,7,0,0,0,1
-AGED-PARMESAN,"Aged Parmesan","Aged parmigiano","Crystalline texture",1,9,7,0,0,0,1
-PECORINO-ROMANO,"Pecorino Romano","Shaved pecorino","Sharp sheep milk",1,9,7,0,0,0,1
-ASIAGO,"Asiago","Shaved asiago","Nutty flavor",1,9,7,0,0,0,0
-CHEDDAR,"Cheddar","Shredded cheddar","Sharp aged cheddar",1,9,7,0,0,1,0
-WHITE-CHEDDAR,"White Cheddar","White cheddar shreds","Creamy sharp",1,9,7,0,0,1,0
-GRUYERE,"Gruyere","Shredded gruyere","Nutty and sweet",1,9,7,0,0,0,0
-SWISS-CHEESE,"Swiss Cheese","Cubed swiss","Mild and nutty",1,9,7,0,0,1,0
-MONTEREY-JACK,"Monterey Jack","Shredded jack","Mild and creamy",1,9,7,0,0,0,0
-PEPPER-JACK,"Pepper Jack","Spicy jack cheese","Jalapeño kick",1,9,7,0,0,0,0
-HAVARTI,"Havarti","Sliced havarti","Buttery smooth",1,9,7,0,0,0,0
-BRIE,"Brie","Cubed brie","Creamy rind",1,9,7,0,0,0,0
-MANCHEGO,"Manchego","Cubed manchego","Spanish sheep milk",1,9,7,0,0,0,0
+ASIAGO,"Asiago","Shaved asiago","Nutty flavor",4,26,32,1,0,0,0
+BLUE-CHEESE,"Blue Cheese","Crumbled blue cheese","Bold and pungent",2,29,21,1,0,1,0
+BRIE,"Brie","Cubed brie","Creamy rind",0,28,21,0,0,0,0
+CHEDDAR,"Cheddar","Shredded cheddar","Sharp aged cheddar",1,33,25,0,0,1,0
+FETA-CHEESE,"Feta Cheese","Crumbled feta","Tangy and salty",4,21,14,4,0,0,0
+FRESH-MOZZARELLA,"Fresh Mozzarella","Pearl mozzarella","Mild and milky",2,17,22,1,0,0,0
+GOAT-CHEESE,"Goat Cheese","Creamy goat cheese","Mild tang",1,22,22,1,0,1,0
+GORGONZOLA,"Gorgonzola","Italian blue cheese","Creamy and sharp",2,27,19,1,0,0,0
+GRUYERE,"Gruyere","Shredded gruyere","Nutty and sweet",0,32,30,0,0,1,0
+MONTEREY-JACK,"Monterey Jack","Shredded jack","Mild and creamy",1,30,25,0,0,0,0
+PARMESAN,"Parmesan","Shaved parmesan","Nutty and sharp",4,29,38,1,0,0,0
+PECORINO-ROMANO,"Pecorino Romano","Shaved pecorino","Sharp sheep milk",4,27,32,1,0,0,0
+PEPPER-JACK,"Pepper Jack","Spicy jack cheese","Jalapeño kick",1,30,25,1,0,0,0
+RICOTTA-SALATA,"Ricotta Salata","Crumbled ricotta salata","Salty and firm",3,19,11,1,0,0,0
+SWISS-CHEESE,"Swiss Cheese","Cubed swiss","Mild and nutty",5,28,27,2,0,1,0
+WHITE-CHEDDAR,"White Cheddar","White cheddar shreds","Creamy sharp",1,33,25,0,0,1,0

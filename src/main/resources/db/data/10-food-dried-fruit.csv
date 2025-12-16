@@ -1,15 +1,13 @@
 name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
-Dried Cranberries,Dried Fruit,Berry,Sweet dried cranberries,Tart and chewy,false,false,2,4,4,1
-Golden Raisins,Dried Fruit,Grape,Sweet golden raisins,Natural sweetness,false,false,2,2,5,1
+Apple Chips,Dried Fruit,Pome,Crunchy apple slices,Naturally sweet,false,false,5,2,4,1
+Banana Chips,Dried Fruit,Tropical,Crispy banana slices,Sweet and crunchy,false,false,4,2,5,1
+Chopped Dates,Dried Fruit,Date,Diced dates,Easy to sprinkle,false,false,1,3,5,1
 Dark Raisins,Dried Fruit,Grape,Traditional dark raisins,Classic dried fruit,false,false,2,3,5,1
 Dried Apricots,Dried Fruit,Stone Fruit,Tangy dried apricots,Bright orange color,false,false,2,4,4,1
-Medjool Dates,Dried Fruit,Date,Large medjool dates,Caramel-like flavor,false,false,1,3,5,1
-Chopped Dates,Dried Fruit,Date,Diced dates,Easy to sprinkle,false,false,1,3,5,1
-Dried Figs,Dried Fruit,Fig,Sweet dried figs,Honey-like taste,false,false,2,3,5,1
-Dried Cherries,Dried Fruit,Stone Fruit,Tart dried cherries,Deep red color,false,false,2,4,4,1
 Dried Blueberries,Dried Fruit,Berry,Sweet blueberries,Antioxidant rich,false,false,2,3,4,1
+Dried Cherries,Dried Fruit,Stone Fruit,Tart dried cherries,Deep red color,false,false,2,4,4,1
+Dried Cranberries,Dried Fruit,Berry,Sweet dried cranberries,Tart and chewy,false,false,2,4,4,1
 Dried Mango,Dried Fruit,Tropical,Chewy mango strips,Tropical sweetness,false,false,2,3,5,1
 Dried Pineapple,Dried Fruit,Tropical,Sweet pineapple chunks,Island flavor,false,false,3,4,5,1
 Goji Berries,Dried Fruit,Berry,Superfood goji berries,Nutrient dense,false,false,2,4,3,1
-Banana Chips,Dried Fruit,Tropical,Crispy banana slices,Sweet and crunchy,false,false,4,2,5,1
-Apple Chips,Dried Fruit,Pome,Crunchy apple slices,Naturally sweet,false,false,5,2,4,1
+Golden Raisins,Dried Fruit,Grape,Sweet golden raisins,Natural sweetness,false,false,2,2,5,1

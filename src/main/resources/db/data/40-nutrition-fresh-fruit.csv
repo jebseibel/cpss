@@ -1,19 +1,18 @@
 code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
-STRAWBERRIES,"Strawberries","Fresh sliced strawberries","Sweet and juicy",15,0,1,12,2,0,0
-BLUEBERRIES,"Blueberries","Fresh blueberries","Antioxidant powerhouse",15,0,1,12,2,0,1
-RASPBERRIES,"Raspberries","Fresh raspberries","Delicate and tart",15,0,1,12,7,0,1
-BLACKBERRIES,"Blackberries","Fresh blackberries","Bold berry flavor",15,0,1,12,5,0,1
-APPLE-SLICES,"Apple Slices","Crisp apple slices","Classic fruit choice",15,0,1,12,2,0,0
-PEAR-SLICES,"Pear Slices","Juicy pear slices","Subtly sweet",15,0,1,12,3,0,0
-ORANGE-SEGMENTS,"Orange Segments","Fresh orange segments","Bright citrus burst",15,0,1,12,2,0,0
-GRAPEFRUIT-SEGME,"Grapefruit Segments","Ruby red grapefruit","Tangy and refreshing",15,0,1,12,2,0,0
-MANDARIN-ORANGES,"Mandarin Oranges","Sweet mandarin segments","Easy to eat",15,0,1,12,2,0,0
-PINEAPPLE-CHUNKS,"Pineapple Chunks","Fresh pineapple pieces","Tropical sweetness",15,0,1,12,1,0,0
-MANGO-CHUNKS,"Mango Chunks","Fresh mango cubes","Smooth and sweet",15,0,1,12,2,0,1
-WATERMELON-CUBES,"Watermelon Cubes","Juicy watermelon","Refreshing hydration",15,0,1,12,0,0,0
-CANTALOUPE-CUBES,"Cantaloupe Cubes","Sweet cantaloupe","Peachy orange flesh",15,0,1,12,1,0,0
-HONEYDEW-MELON,"Honeydew Melon","Green honeydew cubes","Mild and sweet",15,0,1,12,1,0,0
-GRAPES,"Grapes","Fresh grape halves","Seedless variety",15,0,1,12,1,0,0
-KIWI-SLICES,"Kiwi Slices","Fresh kiwi rounds","Bright green color",15,0,1,12,3,0,1
-POMEGRANATE-ARIL,"Pomegranate Arils","Ruby pomegranate seeds","Jewel-like texture",15,0,1,12,4,0,1
-PEACH-SLICES,"Peach Slices","Fresh peach wedges","Summer sweetness",15,0,1,12,2,0,1
+APPLE-SLICES,"Apple Slices","Crisp apple slices","Classic fruit choice",14,0,0,10,2,0,0
+BLACKBERRIES,"Blackberries","Fresh blackberries","Bold berry flavor",10,0,1,5,5,0,1
+BLUEBERRIES,"Blueberries","Fresh blueberries","Antioxidant powerhouse",14,0,1,10,2,0,1
+CANTALOUPE-CUBES,"Cantaloupe Cubes","Sweet cantaloupe","Peachy orange flesh",8,0,1,8,1,0,0
+GRAPEFRUIT-SEGME,"Grapefruit Segments","Ruby red grapefruit","Tangy and refreshing",11,0,1,7,2,0,0
+GRAPES,"Grapes","Fresh grape halves","Seedless variety",18,0,1,16,1,0,0
+HONEYDEW-MELON,"Honeydew Melon","Green honeydew cubes","Mild and sweet",9,0,1,8,1,0,0
+KIWI-SLICES,"Kiwi Slices","Fresh kiwi rounds","Bright green color",15,1,1,9,3,0,1
+MANDARIN-ORANGES,"Mandarin Oranges","Sweet mandarin segments","Easy to eat",13,0,1,11,2,0,0
+MANGO-CHUNKS,"Mango Chunks","Fresh mango cubes","Smooth and sweet",15,0,1,14,2,0,1
+ORANGE-SEGMENTS,"Orange Segments","Fresh orange segments","Bright citrus burst",12,0,1,9,2,0,0
+PEACH-SLICES,"Peach Slices","Fresh peach wedges","Summer sweetness",10,0,1,8,2,0,1
+PEAR-SLICES,"Pear Slices","Juicy pear slices","Subtly sweet",15,0,0,10,3,0,0
+PINEAPPLE-CHUNKS,"Pineapple Chunks","Fresh pineapple pieces","Tropical sweetness",13,0,1,10,1,0,0
+RASPBERRIES,"Raspberries","Fresh raspberries","Delicate and tart",12,1,1,4,7,0,1
+STRAWBERRIES,"Strawberries","Fresh sliced strawberries","Sweet and juicy",8,0,1,5,2,0,0
+WATERMELON-CUBES,"Watermelon Cubes","Juicy watermelon","Refreshing hydration",8,0,1,6,0,0,0

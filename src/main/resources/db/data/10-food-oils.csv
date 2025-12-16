@@ -1,0 +1,8 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Avocado Oil,Oil,Dressing,Buttery avocado oil,High smoke point,true,false,1,1,1,2
+Chili Oil,Oil,Finishing,Spicy chili oil,Heat and color,false,false,1,5,1,4
+Coconut Oil,Oil,Solid,Virgin coconut oil,Sweet and tropical,false,false,1,2,3,2
+Extra Virgin Olive Oil,Oil,Dressing,Fruity olive oil,Mediterranean staple,true,false,1,3,1,4
+Flaxseed Oil,Oil,Finishing,Earthy flax oil,Omega-3 rich,false,false,1,3,1,3
+Hazelnut Oil,Oil,Finishing,Sweet hazelnut oil,Great with fruit salads,false,false,1,3,2,3
+Sunflower Oil,Oil,Dressing,Mild sunflower oil,Affordable versatile,false,false,1,1,1,1

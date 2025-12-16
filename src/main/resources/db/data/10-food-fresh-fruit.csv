@@ -1,19 +1,18 @@
 name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
-Strawberries,Fresh Fruit,Berry,Fresh sliced strawberries,Sweet and juicy,true,false,2,3,4,1
-Blueberries,Fresh Fruit,Berry,Fresh blueberries,Antioxidant powerhouse,true,false,2,3,4,1
-Raspberries,Fresh Fruit,Berry,Fresh raspberries,Delicate and tart,false,false,1,4,3,1
-Blackberries,Fresh Fruit,Berry,Fresh blackberries,Bold berry flavor,false,false,2,4,3,1
 Apple Slices,Fresh Fruit,Pome,Crisp apple slices,Classic fruit choice,false,false,4,2,4,1
-Pear Slices,Fresh Fruit,Pome,Juicy pear slices,Subtly sweet,false,false,3,2,4,1
-Orange Segments,Fresh Fruit,Citrus,Fresh orange segments,Bright citrus burst,false,false,2,4,4,1
-Grapefruit Segments,Fresh Fruit,Citrus,Ruby red grapefruit,Tangy and refreshing,false,false,2,5,2,1
-Mandarin Oranges,Fresh Fruit,Citrus,Sweet mandarin segments,Easy to eat,false,false,1,3,5,1
-Pineapple Chunks,Fresh Fruit,Tropical,Fresh pineapple pieces,Tropical sweetness,false,false,2,4,5,1
-Mango Chunks,Fresh Fruit,Tropical,Fresh mango cubes,Smooth and sweet,false,false,1,3,5,1
-Watermelon Cubes,Fresh Fruit,Melon,Juicy watermelon,Refreshing hydration,false,false,2,2,4,1
+Blackberries,Fresh Fruit,Berry,Fresh blackberries,Bold berry flavor,false,false,2,4,3,1
+Blueberries,Fresh Fruit,Berry,Fresh blueberries,Antioxidant powerhouse,true,false,2,3,4,1
 Cantaloupe Cubes,Fresh Fruit,Melon,Sweet cantaloupe,Peachy orange flesh,false,false,2,2,4,1
-Honeydew Melon,Fresh Fruit,Melon,Green honeydew cubes,Mild and sweet,false,false,2,2,4,1
+Grapefruit Segments,Fresh Fruit,Citrus,Ruby red grapefruit,Tangy and refreshing,false,false,2,5,2,1
 Grapes,Fresh Fruit,Grape,Fresh grape halves,Seedless variety,false,false,3,2,5,1
+Honeydew Melon,Fresh Fruit,Melon,Green honeydew cubes,Mild and sweet,false,false,2,2,4,1
 Kiwi Slices,Fresh Fruit,Tropical,Fresh kiwi rounds,Bright green color,false,false,2,4,3,1
-Pomegranate Arils,Fresh Fruit,Berry,Ruby pomegranate seeds,Jewel-like texture,false,false,3,4,3,1
+Mandarin Oranges,Fresh Fruit,Citrus,Sweet mandarin segments,Easy to eat,false,false,1,3,5,1
+Mango Chunks,Fresh Fruit,Tropical,Fresh mango cubes,Smooth and sweet,false,false,1,3,5,1
+Orange Segments,Fresh Fruit,Citrus,Fresh orange segments,Bright citrus burst,false,false,2,4,4,1
 Peach Slices,Fresh Fruit,Stone Fruit,Fresh peach wedges,Summer sweetness,false,false,2,3,5,1
+Pear Slices,Fresh Fruit,Pome,Juicy pear slices,Subtly sweet,false,false,3,2,4,1
+Pineapple Chunks,Fresh Fruit,Tropical,Fresh pineapple pieces,Tropical sweetness,false,false,2,4,5,1
+Raspberries,Fresh Fruit,Berry,Fresh raspberries,Delicate and tart,false,false,1,4,3,1
+Strawberries,Fresh Fruit,Berry,Fresh sliced strawberries,Sweet and juicy,true,false,2,3,4,1
+Watermelon Cubes,Fresh Fruit,Melon,Juicy watermelon,Refreshing hydration,false,false,2,2,4,1

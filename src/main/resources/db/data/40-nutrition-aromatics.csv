@@ -1,0 +1,7 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+GREEN-ONION,"Green Onion","Sliced scallions","Mild and fresh",7,0,2,2,3,0,0
+RAW-GARLIC,"Raw Garlic","Minced raw garlic","Sharp and spicy",33,1,6,1,2,0,0
+RED-ONION,"Red Onion","Thin sliced red onion","Sharp and bright",9,0,1,4,2,0,0
+SHALLOT,"Shallot","Minced shallot","Mild and refined",17,0,3,8,3,0,0
+WHITE-ONION,"White Onion","Diced white onion","Clean and crisp",9,0,1,4,2,0,0
+YELLOW-ONION,"Yellow Onion","Diced yellow onion","Sweet when cooked",9,0,1,4,2,0,0

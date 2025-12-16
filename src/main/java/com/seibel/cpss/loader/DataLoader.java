@@ -4,6 +4,8 @@ import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Nutrition;
 import com.seibel.cpss.common.domain.Mixture;
 import com.seibel.cpss.common.domain.MixtureIngredient;
+import com.seibel.cpss.common.domain.Salad;
+import com.seibel.cpss.common.domain.SaladFoodIngredient;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
 import com.seibel.cpss.database.db.entity.MixtureDb;
@@ -11,9 +13,11 @@ import com.seibel.cpss.database.db.repository.FoodRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
 import com.seibel.cpss.database.db.repository.MixtureRepository;
 import com.seibel.cpss.database.db.repository.MixtureIngredientRepository;
+import com.seibel.cpss.database.db.repository.SaladRepository;
 import com.seibel.cpss.database.db.service.FoodDbService;
 import com.seibel.cpss.database.db.service.NutritionDbService;
 import com.seibel.cpss.database.db.service.MixtureDbService;
+import com.seibel.cpss.database.db.service.SaladDbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -35,39 +39,54 @@ public class DataLoader implements CommandLineRunner {
     private final FoodDbService foodDbService;
     private final NutritionDbService nutritionDbService;
     private final MixtureDbService mixtureDbService;
+    private final SaladDbService saladDbService;
 
     // Repositories needed for linking relationships
     private final FoodRepository foodRepository;
     private final NutritionRepository nutritionRepository;
     private final MixtureRepository mixtureRepository;
     private final MixtureIngredientRepository mixtureIngredientRepository;
+    private final SaladRepository saladRepository;
 
     private static final String DATA_PATH = "db/data/";
 
     // Category list for organizing CSV files
     private static final List<String> CATEGORIES = Arrays.asList(
+            "aromatics",
             "cheese",
+            "dressing-accents",
             "dried-crunch",
             "dried-fruit",
             "fresh-fruit",
+            "grains",
+            "herbs",
+            "mushrooms",
             "nuts",
-            "vegetables"
+            "oils",
+            "protein",
+            "spicy",
+            "vegetables",
+            "vinegars"
     );
 
     public DataLoader(FoodDbService foodDbService,
                       NutritionDbService nutritionDbService,
                       MixtureDbService mixtureDbService,
+                      SaladDbService saladDbService,
                       FoodRepository foodRepository,
                       NutritionRepository nutritionRepository,
                       MixtureRepository mixtureRepository,
-                      MixtureIngredientRepository mixtureIngredientRepository) {
+                      MixtureIngredientRepository mixtureIngredientRepository,
+                      SaladRepository saladRepository) {
         this.foodDbService = foodDbService;
         this.nutritionDbService = nutritionDbService;
         this.mixtureDbService = mixtureDbService;
+        this.saladDbService = saladDbService;
         this.foodRepository = foodRepository;
         this.nutritionRepository = nutritionRepository;
         this.mixtureRepository = mixtureRepository;
         this.mixtureIngredientRepository = mixtureIngredientRepository;
+        this.saladRepository = saladRepository;
     }
 
     @Override
@@ -84,11 +103,12 @@ public class DataLoader implements CommandLineRunner {
 
             log.info("No existing data found. Loading from CSV files...");
 
-            // Load in order: Nutrition -> Food -> Link relationships -> Mixtures (with ingredients)
+            // Load in order: Nutrition -> Food -> Link relationships -> Mixtures -> Salads
             loadNutrition();
             loadFoods();
             linkFoodRelationships();
             loadMixtures();
+            loadSalads();
 
             log.info("=== Data Loading Complete ===");
             logSummary();
@@ -117,6 +137,7 @@ public class DataLoader implements CommandLineRunner {
                 nutrition.setFat(parseInteger(record.get("fat")));
                 nutrition.setProtein(parseInteger(record.get("protein")));
                 nutrition.setSugar(parseInteger(record.get("sugar")));
+                nutrition.setFiber(parseInteger(record.get("fiber")));
                 nutrition.setVitaminD(parseInteger(record.get("vitamin_d")));
                 nutrition.setVitaminE(parseInteger(record.get("vitamin_e")));
 
@@ -146,6 +167,10 @@ public class DataLoader implements CommandLineRunner {
                 food.setNotes(record.get("notes"));
                 food.setFoundation(parseBoolean(record.get("foundation")));
                 food.setMixable(parseBoolean(record.get("mixable")));
+                food.setCrunch(parseInteger(record.get("crunch")));
+                food.setPunch(parseInteger(record.get("punch")));
+                food.setSweet(parseInteger(record.get("sweet")));
+                food.setSavory(parseInteger(record.get("savory")));
 
                 foodDbService.create(food);
                 count++;
@@ -245,15 +270,75 @@ public class DataLoader implements CommandLineRunner {
         log.info("Loaded {} prebuilt mixtures with {} ingredients", count, ingredientCount);
     }
 
+    private void loadSalads() throws IOException {
+        log.info("Loading Salads with Ingredients...");
+
+        // First, read all ingredients and group by salad name
+        String ingredientsPath = DATA_PATH + "80-salad-food-ingredient.csv";
+        List<Map<String, String>> ingredientRecords = CsvParser.parse(ingredientsPath);
+
+        // Group ingredients by salad name
+        Map<String, List<Map<String, String>>> ingredientsBySalad = ingredientRecords.stream()
+                .collect(Collectors.groupingBy(record -> record.get("salad_name")));
+
+        // Now load salads with their ingredients
+        String saladsPath = DATA_PATH + "70-salad.csv";
+        List<Map<String, String>> saladRecords = CsvParser.parse(saladsPath);
+        int count = 0;
+        int ingredientCount = 0;
+
+        for (Map<String, String> record : saladRecords) {
+            String saladName = record.get("name");
+
+            Salad salad = new Salad();
+            salad.setName(saladName);
+            salad.setDescription(record.get("description"));
+            // Leave userExtid as null for prebuilt/system salads
+
+            // Add ingredients if they exist
+            List<SaladFoodIngredient> ingredients = new ArrayList<>();
+            List<Map<String, String>> saladIngredients = ingredientsBySalad.get(saladName);
+
+            if (saladIngredients != null) {
+                for (Map<String, String> ingredientRecord : saladIngredients) {
+                    String foodName = ingredientRecord.get("food_name");
+                    Integer grams = parseInteger(ingredientRecord.get("grams"));
+
+                    // Find food by name to get its extid
+                    Optional<FoodDb> foodOpt = foodRepository.findByName(foodName);
+                    if (foodOpt.isEmpty()) {
+                        log.warn("Food not found for salad ingredient: {}", foodName);
+                        continue;
+                    }
+
+                    SaladFoodIngredient ingredient = new SaladFoodIngredient();
+                    ingredient.setFoodExtid(foodOpt.get().getExtid());
+                    ingredient.setGrams(grams);
+
+                    ingredients.add(ingredient);
+                    ingredientCount++;
+                }
+            }
+
+            salad.setFoodIngredients(ingredients);
+            saladDbService.create(salad);
+            count++;
+        }
+
+        log.info("Loaded {} prebuilt salads with {} ingredients", count, ingredientCount);
+    }
+
     private void logSummary() {
         long foods = foodRepository.count();
         long nutrition = nutritionRepository.count();
         long mixtures = mixtureRepository.count();
+        long salads = saladRepository.count();
 
         log.info("=== Data Load Summary ===");
         log.info("Foods:     {}", foods);
         log.info("Nutrition: {}", nutrition);
         log.info("Mixtures:  {}", mixtures);
+        log.info("Salads:    {}", salads);
         log.info("========================");
     }
 

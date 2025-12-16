@@ -1,0 +1,16 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+DRIED-BASIL,"Dried Basil","Dried sweet basil","Concentrated flavor",48,4,23,2,38,0,11
+DRIED-DILL,"Dried Dill","Dried dill weed","Light and grassy",56,4,20,0,14,0,0
+DRIED-OREGANO,"Dried Oregano","Mediterranean oregano","Savory and peppery",69,4,9,4,43,0,18
+DRIED-THYME,"Dried Thyme","Dried thyme leaves","Warm and earthy",64,2,9,2,37,0,3
+FRESH-BASIL,"Fresh Basil","Torn basil leaves","Sweet and aromatic",3,1,3,0,2,0,1
+FRESH-CHIVES,"Fresh Chives","Snipped chives","Mild onion flavor",4,1,3,2,3,0,0
+FRESH-CILANTRO,"Fresh Cilantro","Chopped cilantro","Citrusy and fresh",4,1,2,1,3,0,3
+FRESH-DILL,"Fresh Dill","Chopped dill fronds","Light and tangy",7,1,4,0,2,0,0
+FRESH-MINT,"Fresh Mint","Torn mint leaves","Cool and clean",8,1,4,0,8,0,0
+FRESH-OREGANO,"Fresh Oregano","Fresh oregano leaves","Savory and spicy",11,4,9,4,43,0,18
+FRESH-PARSLEY,"Fresh Parsley","Chopped flat-leaf parsley","Bright and grassy",6,1,3,1,3,0,1
+FRESH-ROSEMARY,"Fresh Rosemary","Minced rosemary","Piney and strong",21,6,3,0,14,0,0
+FRESH-TARRAGON,"Fresh Tarragon","Tarragon leaves","Sweet and anise-like",50,7,23,0,7,0,0
+FRESH-THYME,"Fresh Thyme","Thyme leaves","Warm and herbal",24,2,6,0,14,0,0
+ITALIAN-SEASONI,"Italian Seasoning","Herb blend","Balanced blend",55,4,12,3,35,0,10

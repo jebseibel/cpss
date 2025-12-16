@@ -1,0 +1,7 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+KING-OYSTER,"King Oyster","Seared trumpet slices","Dense and tender",6,0,3,1,2,0,0
+MOREL,"Morel","Sauteed morels","Earthy and nutty",5,0,3,0,2,5,0
+OYSTER-MUSHROOM,"Oyster Mushroom","Torn oyster mushrooms","Silky and delicate",6,0,3,1,2,0,0
+PORTOBELLO,"Portobello","Sliced roasted caps","Meaty and rich",4,0,2,2,1,3,0
+SHIITAKE,"Shiitake","Pan-sauteed shiitake","Savory and aromatic",7,0,2,2,2,18,0
+WHITE-BUTTON,"White Button","Sliced button mushrooms","Mild and tender",3,0,3,2,1,7,0

@@ -1,0 +1,8 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+BANANA-PEPPER,"Banana Pepper","Mild banana pepper rings","Tangy and sweet",5,0,1,2,2,0,1
+BLACK-PEPPER,"Black Pepper","Fresh ground pepper","Universal warmth",64,3,10,1,25,0,1
+FRESH-JALAPENO,"Fresh Jalapeno","Sliced fresh jalapeno","Medium heat",6,0,1,4,3,0,4
+FRESH-SERRANO,"Fresh Serrano","Minced serrano","Sharper green heat",7,0,2,4,4,0,1
+PEPPERONCINI,"Pepperoncini","Mild pepperoncini","Zesty and mild",5,1,1,2,2,0,1
+PICKLED-JALAPENO,"Pickled Jalapeno","Pickled jalapeno slices","Tangy medium heat",4,1,1,2,2,0,2
+RED-PEPPER-FLAK,"Red Pepper Flakes","Crushed red pepper","Classic balanced heat",50,17,12,10,27,0,0

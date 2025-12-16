@@ -1,0 +1,6 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+OAT-BRAN,"Oat Bran","Pure oat bran","Extra soluble fiber",66,7,17,1,15,0,0
+QUINOA-FLAKES,"Quinoa Flakes","Quick-cook quinoa","High protein base",64,6,14,0,7,0,0
+ROLLED-OATS,"Rolled Oats","Classic rolled oats","Fiber and beta-glucan",66,7,14,1,10,0,0
+STEEL-CUT-OATS,"Steel Cut Oats","Hearty steel cut","Chewy texture",66,7,14,1,10,0,0
+WHEAT-BERRIES,"Wheat Berries","Chewy wheat berries","Dense and nutty",30,1,5,0,5,0,0

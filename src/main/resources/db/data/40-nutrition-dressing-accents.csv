@@ -1,0 +1,10 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+ANCHOVY-PASTE,"Anchovy Paste","Smooth anchovy","Intense umami",0,5,25,0,0,0,2
+CAPERS,"Capers","Pickled capers","Salty and briny",5,1,2,0,3,0,0
+DIJON-MUSTARD,"Dijon Mustard","Smooth dijon","Sharp and creamy",5,4,4,3,3,0,0
+GREEK-YOGURT-BA,"Greek Yogurt Base","Plain thick yogurt","Tangy and creamy",4,5,10,4,0,0,0
+MAYONNAISE,"Mayonnaise","Creamy mayo","Rich emulsion",0,79,1,1,0,0,3
+OLIVES-KALAMATA,"Olives Kalamata","Chopped kalamata","Fruity and briny",4,15,1,0,3,0,2
+SOY-SAUCE,"Soy Sauce","Naturally brewed soy","Salty umami",5,0,8,1,0,0,0
+WHOLE-GRAIN-MUS,"Whole Grain Mustard","Seedy mustard","Textured and tangy",6,4,4,3,3,0,0
+WORCESTERSHIRE,"Worcestershire","Worcestershire sauce","Complex savory",19,0,0,15,0,0,0

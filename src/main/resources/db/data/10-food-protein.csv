@@ -1,0 +1,14 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Black Beans,Protein,Plant-Based,Seasoned black beans,Creamy and mild,false,false,2,2,1,3
+Canned Tuna,Protein,Animal-Based,Flaked light tuna,Mix with olive oil,false,false,2,3,1,4
+Chickpeas,Protein,Plant-Based,Firm garbanzo beans,Great with lemon and herbs,true,false,3,2,1,3
+Crab Meat,Protein,Animal-Based,Fresh crab meat,Delicate and sweet,false,false,2,3,2,4
+Edamame,Protein,Plant-Based,Shelled soybeans,Tender and buttery,true,false,3,2,2,3
+Firm Tofu,Protein,Plant-Based,Cubed firm tofu,Neutral and versatile,false,false,2,1,1,2
+Grilled Chicken,Protein,Animal-Based,Sliced chicken breast,Lean and mild,true,false,2,2,1,4
+Grilled Salmon,Protein,Animal-Based,Flaked salmon,Omega-3 rich,true,false,2,4,1,5
+Grilled Shrimp,Protein,Animal-Based,Chilled shrimp,Firm and sweet,false,false,3,3,2,4
+Hard Boiled Egg,Protein,Animal-Based,Sliced eggs,Rich and creamy,true,false,2,3,1,4
+Quinoa,Protein,Plant-Based,Fluffy quinoa,High-protein grain,true,true,2,2,1,2
+Roasted Turkey,Protein,Animal-Based,Sliced turkey breast,Tender and mild,false,false,2,2,1,3
+Sliced Steak,Protein,Animal-Based,Thin flank steak,Savory and tender,false,false,3,4,1,5

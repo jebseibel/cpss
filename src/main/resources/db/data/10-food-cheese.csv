@@ -1,21 +1,17 @@
 name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
-Feta Cheese,Cheese,Soft,Crumbled feta,Tangy and salty,true,false,2,4,1,5
-Goat Cheese,Cheese,Soft,Creamy goat cheese,Mild tang,false,false,1,3,1,4
-Blue Cheese,Cheese,Soft,Crumbled blue cheese,Bold and pungent,false,false,2,5,1,5
-Gorgonzola,Cheese,Soft,Italian blue cheese,Creamy and sharp,false,false,1,5,1,5
-Fresh Mozzarella,Cheese,Soft,Pearl mozzarella,Mild and milky,true,false,1,2,2,3
-Burrata,Cheese,Soft,Creamy burrata,Luxurious center,false,false,1,2,2,3
-Ricotta Salata,Cheese,Firm,Crumbled ricotta salata,Salty and firm,false,false,2,3,1,4
-Parmesan,Cheese,Hard,Shaved parmesan,Nutty and sharp,true,false,3,4,1,5
-Aged Parmesan,Cheese,Hard,Aged parmigiano,Crystalline texture,false,false,4,5,1,5
-Pecorino Romano,Cheese,Hard,Shaved pecorino,Sharp sheep milk,false,false,3,5,1,5
 Asiago,Cheese,Hard,Shaved asiago,Nutty flavor,false,false,3,4,1,4
-Cheddar,Cheese,Hard,Shredded cheddar,Sharp aged cheddar,true,false,2,4,1,4
-White Cheddar,Cheese,Hard,White cheddar shreds,Creamy sharp,false,false,2,4,1,4
-Gruyere,Cheese,Semi-Hard,Shredded gruyere,Nutty and sweet,false,false,2,3,2,4
-Swiss Cheese,Cheese,Semi-Hard,Cubed swiss,Mild and nutty,false,false,2,2,2,3
-Monterey Jack,Cheese,Semi-Soft,Shredded jack,Mild and creamy,false,false,1,2,1,3
-Pepper Jack,Cheese,Semi-Soft,Spicy jack cheese,Jalapeño kick,false,false,1,5,1,4
-Havarti,Cheese,Semi-Soft,Sliced havarti,Buttery smooth,false,false,1,2,1,3
+Blue Cheese,Cheese,Soft,Crumbled blue cheese,Bold and pungent,false,false,2,5,1,5
 Brie,Cheese,Soft,Cubed brie,Creamy rind,false,false,1,3,1,4
-Manchego,Cheese,Hard,Cubed manchego,Spanish sheep milk,false,false,2,4,1,4
+Cheddar,Cheese,Hard,Shredded cheddar,Sharp aged cheddar,true,false,2,4,1,4
+Feta Cheese,Cheese,Soft,Crumbled feta,Tangy and salty,true,false,2,4,1,5
+Fresh Mozzarella,Cheese,Soft,Pearl mozzarella,Mild and milky,true,false,1,2,2,3
+Goat Cheese,Cheese,Soft,Creamy goat cheese,Mild tang,false,false,1,3,1,4
+Gorgonzola,Cheese,Soft,Italian blue cheese,Creamy and sharp,false,false,1,5,1,5
+Gruyere,Cheese,Semi-Hard,Shredded gruyere,Nutty and sweet,false,false,2,3,2,4
+Monterey Jack,Cheese,Semi-Soft,Shredded jack,Mild and creamy,false,false,1,2,1,3
+Parmesan,Cheese,Hard,Shaved parmesan,Nutty and sharp,true,false,3,4,1,5
+Pecorino Romano,Cheese,Hard,Shaved pecorino,Sharp sheep milk,false,false,3,5,1,5
+Pepper Jack,Cheese,Semi-Soft,Spicy jack cheese,Jalapeño kick,false,false,1,5,1,4
+Ricotta Salata,Cheese,Firm,Crumbled ricotta salata,Salty and firm,false,false,2,3,1,4
+Swiss Cheese,Cheese,Semi-Hard,Cubed swiss,Mild and nutty,false,false,2,2,2,3
+White Cheddar,Cheese,Hard,White cheddar shreds,Creamy sharp,false,false,2,4,1,4

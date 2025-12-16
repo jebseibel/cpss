@@ -1,0 +1,16 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Dried Basil,Herb,Dried,Dried sweet basil,Concentrated flavor,false,false,1,3,1,3
+Dried Dill,Herb,Dried,Dried dill weed,Light and grassy,false,false,1,2,1,2
+Dried Oregano,Herb,Dried,Mediterranean oregano,Savory and peppery,false,false,1,4,1,4
+Dried Thyme,Herb,Dried,Dried thyme leaves,Warm and earthy,false,false,1,3,1,4
+Fresh Basil,Herb,Fresh,Torn basil leaves,Sweet and aromatic,true,false,1,3,2,3
+Fresh Chives,Herb,Fresh,Snipped chives,Mild onion flavor,true,false,2,2,1,3
+Fresh Cilantro,Herb,Fresh,Chopped cilantro,Citrusy and fresh,true,false,2,4,1,3
+Fresh Dill,Herb,Fresh,Chopped dill fronds,Light and tangy,false,false,1,3,1,3
+Fresh Mint,Herb,Fresh,Torn mint leaves,Cool and clean,false,false,1,4,2,2
+Fresh Oregano,Herb,Fresh,Fresh oregano leaves,Savory and spicy,false,false,2,4,1,4
+Fresh Parsley,Herb,Fresh,Chopped flat-leaf parsley,Bright and grassy,true,false,2,3,1,3
+Fresh Rosemary,Herb,Fresh,Minced rosemary,Piney and strong,false,false,2,5,1,4
+Fresh Tarragon,Herb,Fresh,Tarragon leaves,Sweet and anise-like,false,false,1,3,2,3
+Fresh Thyme,Herb,Fresh,Thyme leaves,Warm and herbal,false,false,1,3,1,4
+Italian Seasoning,Herb,Dried,Herb blend,Balanced blend,false,false,1,3,1,4
