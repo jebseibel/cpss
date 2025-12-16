@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: remove_serving_from_food
+      author: jeb
+      labels: remove_serving_from_food
+      changes:
+        # Drop foreign key constraint from food to serving
+        - dropForeignKeyConstraint:
+            baseTableName: food
+            constraintName: fk_food_serving
+
+        # Drop serving_id column from food table
+        - dropColumn:
+            tableName: food
+            columnName: serving_id

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: make-salad-user-nullable
+      author: claude
+      comment: Make user_extid nullable in salad table to support system/prebuilt salads
+      changes:
+        - dropNotNullConstraint:
+            tableName: salad
+            columnName: user_extid
+            columnDataType: varchar(36)

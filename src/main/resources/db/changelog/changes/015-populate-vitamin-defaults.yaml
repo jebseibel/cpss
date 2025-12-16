@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-populate-vitamin-defaults
+      author: system
+      comment: Populate default vitamin values for existing nutrition records
+      changes:
+        - update:
+            tableName: nutrition
+            columns:
+              - column:
+                  name: vitamin_d
+                  valueNumeric: 12
+              - column:
+                  name: vitamin_e
+                  valueNumeric: 23
+            where: vitamin_d IS NULL OR vitamin_e IS NULL

@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: load-csv-data
+      author: jeb
+      labels: load_csv_data
+      changes:
+        # Load Company data
+        - loadData:
+            tableName: company
+            file: db/data/01-company.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+
+        # NOTE: Flavor, Serving, Nutrition, and Food data are now loaded via Java DataLoader
+        # This ensures proper code generation and relationship linking through DbService layer
+        # CSV files are still used but loaded programmatically on application startup
+
+        # Load Users data
+        - loadData:
+            tableName: users
+            file: db/data/02-users.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: username, type: string }
+              - column: { name: password, type: string }
+              - column: { name: email, type: string }
+              - column: { name: role, type: string }

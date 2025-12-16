@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_mixture_ingredient_table
+      author: jeb
+      labels: create_mixture_ingredient_table
+      changes:
+
+        # Mixture Ingredient Table
+        - createTable:
+            tableName: mixture_ingredient
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true }, defaultValueComputed: "(UUID())" }
+              - column: { name: mixture_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: food_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: quantity, type: int, constraints: { nullable: false }, defaultValueNumeric: 1 }
+              - column: { name: unit, type: varchar(20), constraints: { nullable: false } }
+              - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: datetime }
+              - column: { name: deleted_at, type: datetime }
+              - column: { name: active, type: int, defaultValueNumeric: 1 }
+
+        # Foreign Key Constraints
+        - addForeignKeyConstraint:
+            baseTableName: mixture_ingredient
+            baseColumnNames: mixture_id
+            constraintName: fk_mixture_ingredient_mixture
+            referencedTableName: mixture
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: mixture_ingredient
+            baseColumnNames: food_id
+            constraintName: fk_mixture_ingredient_food
+            referencedTableName: food
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE

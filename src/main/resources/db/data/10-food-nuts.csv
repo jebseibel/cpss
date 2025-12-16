@@ -1,0 +1,16 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Sliced Almonds,Nuts,Tree Nut,Thin sliced almonds,Perfect for adding crunch,true,false,5,3,1,3
+Whole Almonds,Nuts,Tree Nut,Whole roasted almonds,Heart-healthy option,false,false,5,3,1,3
+Chopped Walnuts,Nuts,Tree Nut,Chopped walnuts,Rich omega-3 source,true,true,0,0,0,0
+Walnut Halves,Nuts,Tree Nut,Premium walnut halves,Beautiful presentation,false,false,5,3,1,4
+Pecan Halves,Nuts,Tree Nut,Fresh pecan halves,Sweet and buttery,false,false,4,3,3,3
+Chopped Pecans,Nuts,Tree Nut,Chopped pecans,Great for texture,false,false,5,3,3,3
+Cashews,Nuts,Tree Nut,Roasted cashews,Creamy and mild,false,false,4,2,2,3
+Pistachios,Nuts,Tree Nut,Shelled pistachios,Vibrant green color,false,true,0,0,0,0
+Honey Roasted Peanuts,Nuts,Legume,Sweet honey peanuts,Candied crunch,false,false,5,3,5,2
+Dry Roasted Peanuts,Nuts,Legume,Unsalted peanuts,Classic protein,false,false,5,3,1,3
+Macadamia Nuts,Nuts,Tree Nut,Buttery macadamias,Luxury nut option,false,false,4,2,2,3
+Hazelnuts,Nuts,Tree Nut,Roasted hazelnuts,Rich and earthy,false,true,0,0,0,0
+Mixed Nuts,Nuts,Tree Nut,Variety nut blend,Assorted favorites,false,false,5,3,2,3
+Candied Pecans,Nuts,Tree Nut,Sweet glazed pecans,Caramelized coating,false,false,4,3,5,2
+Pine Nuts,Nuts,Tree Nut,Mediterranean pine nuts,Delicate and buttery,false,true,0,0,0,0

@@ -1,0 +1,19 @@
+name,category,subcategory,description,notes,foundation,mixable,crunch,punch,sweet,savory
+Sunflower Seeds,Seeds,Seed,Roasted sunflower seeds,Nutty crunch,true,true,0,0,0,0
+Pumpkin Seeds,Seeds,Seed,Roasted pepitas,Green and crunchy,true,true,0,0,0,0
+Chia Seeds,Seeds,Seed,Whole chia seeds,Omega-3 boost,false,true,0,0,0,0
+Hemp Hearts,Seeds,Seed,Hulled hemp seeds,Complete protein,false,true,0,0,0,0
+Flax Seeds,Seeds,Seed,Ground flaxseed,Fiber rich,false,true,0,0,0,0
+Sesame Seeds,Seeds,Seed,Toasted sesame,Asian flair,false,true,0,0,0,0
+Croutons,Crunch,Bread,Garlic herb croutons,Classic topper,true,false,5,4,1,5
+Seasoned Croutons,Crunch,Bread,Italian croutons,Herbed and crispy,false,false,5,5,1,5
+Garlic Crisps,Crunch,Bread,Thin garlic chips,Aromatic crunch,false,false,5,5,1,5
+Wonton Strips,Crunch,Fried,Crispy wonton strips,Asian-style crunch,false,false,5,3,1,3
+Tortilla Strips,Crunch,Fried,Crispy tortilla strips,Tex-Mex crunch,false,false,5,4,1,4
+Bacon Bits,Crunch,Meat,Real bacon pieces,Smoky crunch,false,false,4,5,1,5
+Fried Onions,Crunch,Vegetable,Crispy fried onions,French onion style,false,false,5,4,2,5
+Chickpea Crunch,Crunch,Legume,Roasted chickpeas,Protein crunch,false,false,5,3,1,3
+Quinoa Puffs,Crunch,Grain,Puffed quinoa,Light and airy,false,true,0,0,0,0
+Granola Clusters,Crunch,Grain,Honey granola,Sweet clusters,false,false,4,3,5,2
+Coconut Flakes,Crunch,Tropical,Toasted coconut,Sweet and crispy,false,true,0,0,0,0
+Pita Chips,Crunch,Bread,Seasoned pita chips,Mediterranean crunch,false,false,5,3,1,4

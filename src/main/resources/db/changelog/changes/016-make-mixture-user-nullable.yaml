@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 016-make-mixture-user-nullable
+      author: system
+      comment: Make user_extid nullable in mixture table to support system/prebuilt mixtures
+      changes:
+        - dropNotNullConstraint:
+            tableName: mixture
+            columnName: user_extid
+            columnDataType: varchar(36)

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename_mixture_ingredient_quantity_to_grams
+      author: jeb
+      labels: rename_mixture_ingredient_quantity_to_grams
+      changes:
+        # Rename quantity column to grams
+        - renameColumn:
+            tableName: mixture_ingredient
+            oldColumnName: quantity
+            newColumnName: grams
+            columnDataType: int
+
+        # Drop unit column - all measurements are in grams
+        - dropColumn:
+            tableName: mixture_ingredient
+            columnName: unit

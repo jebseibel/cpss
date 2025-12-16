@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_typical_serving_grams_to_food
+      author: jeb
+      labels: add_typical_serving_grams_to_food
+      changes:
+        # Add typical_serving_grams column to food table
+        - addColumn:
+            tableName: food
+            columns:
+              - column:
+                  name: typical_serving_grams
+                  type: int
+                  constraints:
+                    nullable: true

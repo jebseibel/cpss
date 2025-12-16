@@ -1,0 +1,7 @@
+
+RDS_HOSTNAME=localhost
+RDS_PORT=3306
+RDS_DB_NAME=cpss
+RDS_USERNAME=cpss_user
+RDS_PASSWORD=AnQg3cxD0OQ**HXn
+#AWS test: cpsspass12

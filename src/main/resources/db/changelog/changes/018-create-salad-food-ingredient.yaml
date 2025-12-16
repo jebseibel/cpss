@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_salad_food_ingredient_table
+      author: jeb
+      labels: create_salad_food_ingredient_table
+      changes:
+
+        # Salad Food Ingredient Table
+        - createTable:
+            tableName: salad_food_ingredient
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true }, defaultValueComputed: "(UUID())" }
+              - column: { name: salad_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: food_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: grams, type: int, constraints: { nullable: false } }
+              - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: datetime }
+              - column: { name: deleted_at, type: datetime }
+              - column: { name: active, type: int, defaultValueNumeric: 1 }
+
+        # Foreign Key Constraints
+        - addForeignKeyConstraint:
+            baseTableName: salad_food_ingredient
+            baseColumnNames: salad_id
+            constraintName: fk_salad_food_ingredient_salad
+            referencedTableName: salad
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: salad_food_ingredient
+            baseColumnNames: food_id
+            constraintName: fk_salad_food_ingredient_food
+            referencedTableName: food
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE

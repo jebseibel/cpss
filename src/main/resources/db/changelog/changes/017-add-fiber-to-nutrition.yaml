@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_fiber_to_nutrition
+      author: jeb
+      labels: add_fiber_to_nutrition
+      changes:
+        # Add fiber column to nutrition table (value per 100g)
+        - addColumn:
+            tableName: nutrition
+            columns:
+              - column:
+                  name: fiber
+                  type: int
+                  constraints:
+                    nullable: true

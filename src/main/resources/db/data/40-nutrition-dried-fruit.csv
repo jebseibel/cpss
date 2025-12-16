@@ -1,0 +1,15 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar,fiber,vitamin_d,vitamin_e
+DRIED-CRANBERRIE,"Dried Cranberries","Sweet dried cranberries","Tart and chewy",22,0,1,18,5,0,1
+GOLDEN-RAISINS,"Golden Raisins","Sweet golden raisins","Natural sweetness",22,0,1,18,4,0,0
+DARK-RAISINS,"Dark Raisins","Traditional dark raisins","Classic dried fruit",22,0,1,18,4,0,0
+DRIED-APRICOTS,"Dried Apricots","Tangy dried apricots","Bright orange color",22,0,1,18,7,0,4
+MEDJOOL-DATES,"Medjool Dates","Large medjool dates","Caramel-like flavor",22,0,1,18,7,0,0
+CHOPPED-DATES,"Chopped Dates","Diced dates","Easy to sprinkle",22,0,1,18,7,0,0
+DRIED-FIGS,"Dried Figs","Sweet dried figs","Honey-like taste",22,0,1,18,10,0,0
+DRIED-CHERRIES,"Dried Cherries","Tart dried cherries","Deep red color",22,0,1,18,3,0,0
+DRIED-BLUEBERRIE,"Dried Blueberries","Sweet blueberries","Antioxidant rich",22,0,1,18,4,0,1
+DRIED-MANGO,"Dried Mango","Chewy mango strips","Tropical sweetness",22,0,1,18,3,0,2
+DRIED-PINEAPPLE,"Dried Pineapple","Sweet pineapple chunks","Island flavor",22,0,1,18,3,0,0
+GOJI-BERRIES,"Goji Berries","Superfood goji berries","Nutrient dense",22,0,1,18,4,0,1
+BANANA-CHIPS,"Banana Chips","Crispy banana slices","Sweet and crunchy",22,0,1,18,6,0,0
+APPLE-CHIPS,"Apple Chips","Crunchy apple slices","Naturally sweet",22,0,1,18,5,0,1

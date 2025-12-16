@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop_serving_table
+      author: jeb
+      labels: drop_serving_table
+      changes:
+        # Drop the serving table completely (no longer needed with grams-based system)
+        - dropTable:
+            tableName: serving

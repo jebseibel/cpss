@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_vitamins_to_nutrition
+      author: jeb
+      labels: add_vitamins_to_nutrition
+      changes:
+        # Add vitamin D and vitamin E columns to nutrition table (all values per 100g)
+        - addColumn:
+            tableName: nutrition
+            columns:
+              - column:
+                  name: vitamin_d
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: vitamin_e
+                  type: int
+                  constraints:
+                    nullable: true
