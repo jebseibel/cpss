@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { mixtureApi, foodApi } from '../services/api';
-import { Blend, Plus, Trash2, ArrowLeft } from 'lucide-react';
+import { Blend, ArrowLeft } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { MixtureRequest, MixtureIngredientRequest } from '../types/api';
@@ -65,26 +65,6 @@ export default function MakeMixture() {
             navigate('/mixtures');
         },
     });
-
-    const handleAddIngredient = () => {
-        setIngredients([...ingredients, { foodExtid: '', grams: 1 }]);
-    };
-
-    const handleRemoveIngredient = (index: number) => {
-        setIngredients(ingredients.filter((_, i) => i !== index));
-    };
-
-    const handleIngredientChange = (index: number, field: 'foodExtid' | 'grams', value: string | number) => {
-        const newIngredients = [...ingredients];
-        if (field === 'grams') {
-            // Ensure grams is at least 1
-            const grams = typeof value === 'number' ? value : parseInt(value) || 1;
-            newIngredients[index] = { ...newIngredients[index], grams: Math.max(1, grams) };
-        } else {
-            newIngredients[index] = { ...newIngredients[index], foodExtid: value as string };
-        }
-        setIngredients(newIngredients);
-    };
 
     const handleSaveMixture = () => {
         if (!mixtureName.trim() || ingredients.length < 3) {
@@ -178,81 +158,72 @@ export default function MakeMixture() {
                         <div className="flex items-center justify-between mb-3">
                             <label className="block text-sm font-medium text-gray-700">
                                 Ingredients <span className="text-red-500">*</span>
+                                <span className="ml-2 text-gray-500 font-normal">
+                                    ({ingredients.length} selected, minimum 3)
+                                </span>
                             </label>
-                            <button
-                                onClick={handleAddIngredient}
-                                className="inline-flex items-center px-3 py-1.5 border border-purple-600 text-sm font-medium rounded-md text-purple-600 bg-white hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                            >
-                                <Plus className="h-4 w-4 mr-1" />
-                                Add Ingredient
-                            </button>
                         </div>
 
-                        {ingredients.length === 0 ? (
-                            <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-                                <Blend className="mx-auto h-12 w-12 text-gray-400" />
-                                <p className="mt-2 text-sm text-gray-500">No ingredients added yet</p>
-                                <p className="text-xs text-gray-400">Click "Add Ingredient" to get started</p>
-                            </div>
-                        ) : (
-                            <div className="space-y-3">
-                                {ingredients.map((ingredient, index) => (
-                                    <div key={index} className="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
-                                        <div className="flex-1">
-                                            <select
-                                                value={ingredient.foodExtid}
-                                                onChange={(e) => handleIngredientChange(index, 'foodExtid', e.target.value)}
-                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm border px-3 py-2"
-                                            >
-                                                <option value="">Select food...</option>
-                                                {mixableFoods.map((food) => {
-                                                    // Disable if this food is already selected in another ingredient
-                                                    const isAlreadySelected = ingredients.some(
-                                                        (ing, idx) => idx !== index && ing.foodExtid === food.extid
-                                                    );
-                                                    return (
-                                                        <option
-                                                            key={food.extid}
-                                                            value={food.extid}
-                                                            disabled={isAlreadySelected}
-                                                        >
-                                                            {food.name}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </select>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <input
-                                                type="number"
-                                                min="1"
-                                                value={ingredient.grams || ''}
-                                                onChange={(e) => handleIngredientChange(index, 'grams', parseInt(e.target.value) || 1)}
-                                                placeholder="Grams"
-                                                className="w-28 rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm border px-3 py-2"
-                                            />
-                                            <span className="text-sm text-gray-500">g</span>
-                                        </div>
-                                        <button
-                                            onClick={() => handleRemoveIngredient(index)}
-                                            className="text-red-600 hover:text-red-800 p-1"
-                                            title="Remove ingredient"
-                                        >
-                                            <Trash2 className="h-5 w-5" />
-                                        </button>
-                                    </div>
-                                ))}
+                        <div className="space-y-2 max-h-96 overflow-y-auto border border-gray-200 rounded-lg p-3 bg-gray-50">
+                            {mixableFoods.map((food) => {
+                                const ingredientIndex = ingredients.findIndex(ing => ing.foodExtid === food.extid);
+                                const isSelected = ingredientIndex !== -1;
+                                const currentGrams = isSelected ? ingredients[ingredientIndex].grams : 10;
 
-                                {ingredients.length > 0 && (
-                                    <div className="mt-4 pt-4 border-t border-gray-200">
-                                        <div className="flex justify-between text-sm">
-                                            <span className="font-medium text-gray-700">Total Weight:</span>
-                                            <span className="font-semibold text-purple-600">
-                                                {ingredients.reduce((sum, ing) => sum + (ing.grams || 0), 0)}g
-                                            </span>
-                                        </div>
+                                return (
+                                    <div
+                                        key={food.extid}
+                                        className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+                                            isSelected
+                                                ? 'bg-purple-50 border-purple-300'
+                                                : 'bg-white border-gray-200 hover:border-gray-300'
+                                        }`}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={isSelected}
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setIngredients([...ingredients, { foodExtid: food.extid, grams: 10 }]);
+                                                } else {
+                                                    setIngredients(ingredients.filter(ing => ing.foodExtid !== food.extid));
+                                                }
+                                            }}
+                                            className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer"
+                                        />
+                                        <span className={`flex-1 ${isSelected ? 'text-purple-900 font-medium' : 'text-gray-700'}`}>
+                                            {food.name}
+                                        </span>
+                                        {isSelected && (
+                                            <div className="flex items-center gap-2">
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={currentGrams}
+                                                    onChange={(e) => {
+                                                        const grams = Math.max(1, parseInt(e.target.value) || 1);
+                                                        const newIngredients = [...ingredients];
+                                                        newIngredients[ingredientIndex] = { ...newIngredients[ingredientIndex], grams };
+                                                        setIngredients(newIngredients);
+                                                    }}
+                                                    className="w-20 rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm border px-2 py-1 text-center"
+                                                />
+                                                <span className="text-sm text-gray-500">g</span>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
+                                );
+                            })}
+                        </div>
+
+                        {ingredients.length > 0 && (
+                            <div className="mt-4 pt-4 border-t border-gray-200">
+                                <div className="flex justify-between text-sm">
+                                    <span className="font-medium text-gray-700">Total Weight:</span>
+                                    <span className="font-semibold text-purple-600">
+                                        {ingredients.reduce((sum, ing) => sum + (ing.grams || 0), 0)}g
+                                    </span>
+                                </div>
                             </div>
                         )}
                     </div>
