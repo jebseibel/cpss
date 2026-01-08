@@ -1,19 +1,19 @@
-# QA Environment Operations Guide
+# cpss Environment Operations Guide
 
 ## Purpose
 
-This guide covers **day-to-day operations** for the running QA environment: monitoring, troubleshooting, and maintenance. For initial setup, see `qa-setup.md`. For deploying code changes, see `qa-deployment.md`.
+This guide covers **day-to-day operations** for the running cpss environment: monitoring, troubleshooting, and maintenance. For initial setup, see `cpss-setup.md`. For deploying code changes, see `cpss-deployment.md`.
 
 ---
 
-## Current QA Environment
+## Current cpss Environment
 
 | Item | Value |
 |------|-------|
 | **IP Address** | 72.61.75.82 |
 | **Provider** | Hostinger |
 | **OS** | Ubuntu 24.04.3 LTS |
-| **SSH** | `ssh qa` (or `ssh root@72.61.75.82`) |
+| **SSH** | `ssh cpss` (or `ssh root@72.61.75.82`) |
 
 ---
 
@@ -84,7 +84,7 @@ Client Browser
 
 ```bash
 # SSH to VPS first
-ssh qa
+ssh cpss
 
 # Commands
 systemctl start cpss
@@ -288,7 +288,7 @@ truncate -s 0 /var/log/cpss/app.log
 
 ```bash
 #!/bin/bash
-echo "=== CPSS QA Status ==="
+echo "=== CPSS cpss Status ==="
 echo ""
 echo "Application:"
 systemctl is-active cpss && echo "  Status: RUNNING" || echo "  Status: DOWN"

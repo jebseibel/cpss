@@ -152,8 +152,8 @@ export default function SaladBuilder() {
                     <ArrowLeft className="h-4 w-4 mr-1" />
                     Back to Salads
                 </button>
-                <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                    <SaladIcon className="h-8 w-8 mr-3 text-green-600" />
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
+                    <SaladIcon className="h-7 w-7 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-green-600" />
                     {isEditMode ? 'Edit Salad' : 'Make a Salad'}
                 </h1>
                 <p className="mt-2 text-sm text-gray-600">
@@ -164,26 +164,26 @@ export default function SaladBuilder() {
             </div>
 
             {/* Foundation Indicator - Prominent Banner */}
-            <div className={`mb-4 p-4 rounded-lg border-2 shadow-sm ${
+            <div className={`mb-4 p-3 sm:p-4 rounded-lg border-2 shadow-sm ${
                 foundationCount >= 1
                     ? 'bg-green-50 border-green-300'
                     : 'bg-amber-50 border-amber-300'
             }`}>
                 <div className="flex items-start">
-                    <AlertCircle className={`h-6 w-6 mt-0.5 mr-3 flex-shrink-0 ${
+                    <AlertCircle className={`h-5 w-5 sm:h-6 sm:w-6 mt-0.5 mr-2 sm:mr-3 flex-shrink-0 ${
                         foundationCount >= 1
                             ? 'text-green-600'
                             : 'text-amber-600'
                     }`} />
                     <div className="flex-1">
-                        <h4 className={`text-base font-bold ${
+                        <h4 className={`text-sm sm:text-base font-bold ${
                             foundationCount >= 1
                                 ? 'text-green-900'
                                 : 'text-amber-900'
                         }`}>
                             Foundation Ingredients: {foundationCount} of 1 required
                         </h4>
-                        <p className={`text-sm mt-1 ${
+                        <p className={`text-xs sm:text-sm mt-1 ${
                             foundationCount >= 1
                                 ? 'text-green-700'
                                 : 'text-amber-700'
@@ -196,7 +196,7 @@ export default function SaladBuilder() {
             </div>
 
             <div className="bg-white shadow sm:rounded-lg">
-                <div className="px-6 py-6 space-y-6">
+                <div className="px-4 py-4 sm:px-6 sm:py-6 space-y-6">
                     {/* Name Input */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">
@@ -250,7 +250,7 @@ export default function SaladBuilder() {
                         ) : (
                             <div className="space-y-3">
                                 {ingredients.map((ingredient, index) => (
-                                    <div key={index} className={`flex items-center gap-3 p-3 rounded-lg border-2 ${
+                                    <div key={index} className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 p-3 rounded-lg border-2 ${
                                         isFoodFoundation(ingredient.foodExtid)
                                             ? 'bg-green-50 border-green-200'
                                             : 'bg-gray-50 border-gray-200'
@@ -259,7 +259,7 @@ export default function SaladBuilder() {
                                             <select
                                                 value={ingredient.foodExtid}
                                                 onChange={(e) => handleIngredientChange(index, 'foodExtid', e.target.value)}
-                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm border px-3 py-2"
+                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-sm border px-3 py-2"
                                             >
                                                 <option value="">Select food...</option>
                                                 {foods?.map((food) => {
@@ -279,29 +279,31 @@ export default function SaladBuilder() {
                                                 })}
                                             </select>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <input
-                                                type="number"
-                                                min="1"
-                                                value={ingredient.grams || ''}
-                                                onChange={(e) => handleIngredientChange(index, 'grams', parseInt(e.target.value) || 1)}
-                                                placeholder="Grams"
-                                                className="w-28 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm border px-3 py-2"
-                                            />
-                                            <span className="text-sm text-gray-500">g</span>
+                                        <div className="flex items-center justify-between sm:justify-start gap-2">
+                                            <div className="flex items-center gap-2">
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={ingredient.grams || ''}
+                                                    onChange={(e) => handleIngredientChange(index, 'grams', parseInt(e.target.value) || 1)}
+                                                    placeholder="Grams"
+                                                    className="w-20 sm:w-28 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-sm border px-3 py-2"
+                                                />
+                                                <span className="text-sm text-gray-500">g</span>
+                                            </div>
+                                            {isFoodFoundation(ingredient.foodExtid) && (
+                                                <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded sm:ml-2">
+                                                    BASE
+                                                </span>
+                                            )}
+                                            <button
+                                                onClick={() => handleRemoveIngredient(index)}
+                                                className="text-red-600 hover:text-red-800 p-1 sm:ml-auto"
+                                                title="Remove ingredient"
+                                            >
+                                                <Trash2 className="h-5 w-5" />
+                                            </button>
                                         </div>
-                                        {isFoodFoundation(ingredient.foodExtid) && (
-                                            <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded">
-                                                BASE
-                                            </span>
-                                        )}
-                                        <button
-                                            onClick={() => handleRemoveIngredient(index)}
-                                            className="text-red-600 hover:text-red-800 p-1"
-                                            title="Remove ingredient"
-                                        >
-                                            <Trash2 className="h-5 w-5" />
-                                        </button>
                                     </div>
                                 ))}
 
@@ -320,10 +322,10 @@ export default function SaladBuilder() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
+                    <div className="flex flex-col sm:flex-row sm:justify-end gap-3 pt-6 border-t border-gray-200">
                         <button
                             onClick={() => navigate('/salads')}
-                            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                            className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                         >
                             Cancel
                         </button>
@@ -337,7 +339,7 @@ export default function SaladBuilder() {
                                 createSaladMutation.isPending ||
                                 updateSaladMutation.isPending
                             }
-                            className="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full sm:w-auto px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {(createSaladMutation.isPending || updateSaladMutation.isPending)
                                 ? (isEditMode ? 'Updating...' : 'Creating...')

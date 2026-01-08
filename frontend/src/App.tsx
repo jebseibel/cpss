@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import BeginHere from './pages/BeginHere';
+import MyStory from './pages/MyStory';
 import Salads from './pages/Salads';
 import SaladBuilder from './pages/SaladBuilder';
 import Mixtures from './pages/Mixtures';
@@ -37,6 +39,8 @@ function App() {
                         }
                     >
                         <Route index element={<Dashboard />} />
+                        <Route path="begin-here" element={<BeginHere />} />
+                        <Route path="my-story" element={<MyStory />} />
                         <Route path="salads" element={<Salads />} />
                         <Route path="salad-builder" element={<SaladBuilder />} />
                         <Route path="salad-builder/:extid" element={<SaladBuilder />} />

@@ -111,37 +111,39 @@ export default function Foods() {
   return (
     <div className="px-4 py-6 sm:px-0">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 flex items-center mb-3">
-          <Apple className="h-8 w-8 mr-3 text-green-600" />
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center mb-3">
+          <Apple className="h-7 w-7 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-green-600" />
           Food Items
         </h1>
 
         {/* Category Filter Buttons */}
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
           <span className="text-sm font-medium text-gray-700">Categories:</span>
-          <button
-            onClick={() => setCategoryFilter('all')}
-            className={`px-3 py-1 text-sm rounded-md ${
-              categoryFilter === 'all'
-                ? 'bg-green-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            All
-          </button>
-          {categories.map((category) => (
+          <div className="flex flex-wrap items-center gap-2">
             <button
-              key={category}
-              onClick={() => setCategoryFilter(category)}
+              onClick={() => setCategoryFilter('all')}
               className={`px-3 py-1 text-sm rounded-md ${
-                categoryFilter === category
+                categoryFilter === 'all'
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              {category}
+              All
             </button>
-          ))}
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setCategoryFilter(category)}
+                className={`px-3 py-1 text-sm rounded-md ${
+                  categoryFilter === category
+                    ? 'bg-green-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
@@ -172,7 +174,8 @@ export default function Foods() {
         </div>
       </div>
 
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+      {/* Desktop Table View */}
+      <div className="hidden sm:block bg-white shadow overflow-hidden sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -253,6 +256,53 @@ export default function Foods() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="sm:hidden space-y-3">
+        {filteredAndSortedFoods && filteredAndSortedFoods.length > 0 ? (
+          filteredAndSortedFoods.map((food) => (
+            <div key={food.extid} className="bg-white shadow rounded-lg overflow-hidden p-4">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-lg font-medium text-gray-900">{food.name}</h3>
+                  <div className="mt-2 space-y-1">
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Category:</span> {food.category || '-'}
+                    </p>
+                    {food.subcategory && (
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Subcategory:</span> {food.subcategory}
+                      </p>
+                    )}
+                    {food.description && (
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Description:</span> {food.description}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3 mt-3">
+                    {food.foundation && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        🥬 Foundation
+                      </span>
+                    )}
+                    {food.mixable && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                        <Blend className="h-3 w-3 mr-1" />
+                        Mixable
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="bg-white shadow rounded-lg p-12 text-center text-gray-500">
+            No food items found.
+          </div>
+        )}
       </div>
     </div>
   );

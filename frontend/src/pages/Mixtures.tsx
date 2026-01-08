@@ -164,18 +164,18 @@ export default function Mixtures() {
 
     return (
         <div className="px-4 py-6 sm:px-0">
-            <div className="flex items-center justify-between mb-6">
-                <div>
-                    <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                        <Blend className="h-8 w-8 mr-3 text-purple-600" />
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6 gap-4">
+                <div className="flex-1">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
+                        <Blend className="h-7 w-7 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-purple-600" />
                         Mixtures
                     </h1>
                     <p className="mt-1 text-sm text-gray-600">
                         Mixtures are to be used in salads and other things like yogurts for nutritional value.
                     </p>
-                    <div className="flex items-center gap-4 mt-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-3">
                         <span className="text-sm font-medium text-gray-700">Show:</span>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <button
                                 onClick={() => setFilter('all')}
                                 className={`px-3 py-1 text-sm font-medium rounded-md ${
@@ -211,14 +211,15 @@ export default function Mixtures() {
                 </div>
                 <button
                     onClick={() => navigate('/mixtures/new')}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 >
                     <Plus className="h-5 w-5 mr-2" />
                     Make a Mixture
                 </button>
             </div>
 
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            {/* Desktop Table View */}
+            <div className="hidden sm:block bg-white shadow overflow-hidden sm:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                     <tr>
@@ -528,6 +529,223 @@ export default function Mixtures() {
                     )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="sm:hidden space-y-4">
+                {filteredAndSortedMixtures && filteredAndSortedMixtures.length > 0 ? (
+                    filteredAndSortedMixtures.map((mixture) => {
+                        const isExpanded = expandedRows.has(mixture.extid);
+                        const hasIngredients = mixture.ingredients && mixture.ingredients.length > 0;
+
+                        return (
+                            <div key={mixture.extid} className="bg-white shadow rounded-lg overflow-hidden">
+                                {/* Card Header */}
+                                <div className="p-4">
+                                    <div className="flex items-start justify-between mb-2">
+                                        <div className="flex-1">
+                                            <h3 className="text-lg font-medium text-gray-900">{mixture.name}</h3>
+                                            {mixture.description && (
+                                                <p className="mt-1 text-sm text-gray-500">{mixture.description}</p>
+                                            )}
+                                            <p className="mt-1 text-xs text-gray-400">
+                                                {hasIngredients ? `${mixture.ingredients.length} ingredients` : 'No ingredients'}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex flex-wrap items-center gap-2 mt-3">
+                                        {hasIngredients && (
+                                            <button
+                                                onClick={() => toggleRow(mixture.extid)}
+                                                className="flex-1 min-w-[120px] inline-flex items-center justify-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                                            >
+                                                {isExpanded ? (
+                                                    <>
+                                                        <ChevronDown className="h-4 w-4 mr-1" />
+                                                        Hide Details
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <ChevronRight className="h-4 w-4 mr-1" />
+                                                        Show Details
+                                                    </>
+                                                )}
+                                            </button>
+                                        )}
+                                        <button
+                                            onClick={() => navigate(`/mixtures/shop/${mixture.extid}`)}
+                                            className="px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-green-600 bg-white hover:bg-green-50"
+                                            title="Shopping list"
+                                        >
+                                            <ShoppingCart className="h-4 w-4" />
+                                        </button>
+                                        {!mixture.userExtid && hasIngredients && (
+                                            <button
+                                                onClick={() => handleMakeItMyOwn(mixture)}
+                                                disabled={createMixtureMutation.isPending}
+                                                className="px-3 py-2 border border-purple-600 rounded-md text-sm font-medium text-purple-600 bg-white hover:bg-purple-50 disabled:opacity-50"
+                                                title="Make It My Own"
+                                            >
+                                                <Copy className="h-4 w-4" />
+                                            </button>
+                                        )}
+                                        {mixture.userExtid && (
+                                            <>
+                                                <button
+                                                    onClick={() => navigate(`/mixtures/edit/${mixture.extid}`)}
+                                                    className="px-3 py-2 border border-purple-600 rounded-md text-sm font-medium text-purple-600 bg-white hover:bg-purple-50"
+                                                    title="Edit"
+                                                >
+                                                    <Edit className="h-4 w-4" />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(mixture)}
+                                                    disabled={deleteMixtureMutation.isPending}
+                                                    className="px-3 py-2 border border-red-600 rounded-md text-sm font-medium text-red-600 bg-white hover:bg-red-50 disabled:opacity-50"
+                                                    title="Delete"
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </button>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Expanded Details */}
+                                {isExpanded && hasIngredients && (
+                                    <div className="border-t border-gray-200 bg-purple-50 p-4 space-y-4">
+                                        {/* Ingredients */}
+                                        <div>
+                                            <h4 className="text-sm font-semibold text-gray-700 mb-2">Ingredients:</h4>
+                                            <div className="space-y-2">
+                                                {mixture.ingredients.map((ingredient) => (
+                                                    <div key={ingredient.extid} className="flex justify-between bg-white p-2 rounded">
+                                                        <span className="text-sm font-medium text-gray-900">{ingredient.foodName}</span>
+                                                        <span className="text-sm text-gray-600">{ingredient.grams}g</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="mt-2 text-sm text-gray-600">
+                                                Total: {mixture.ingredients.reduce((sum, ing) => sum + ing.grams, 0)}g
+                                            </div>
+                                        </div>
+
+                                        {/* Nutrition Info */}
+                                        {mixture.totalNutrition && mixture.totalGrams && (
+                                            <div>
+                                                <h4 className="text-sm font-semibold text-gray-700 mb-2">Nutrition:</h4>
+                                                <div className="space-y-3">
+                                                    {/* Per Batch */}
+                                                    <div className="bg-white p-3 rounded">
+                                                        <h5 className="text-xs font-semibold text-purple-700 uppercase mb-2">
+                                                            Per Batch ({mixture.totalGrams}g)
+                                                        </h5>
+                                                        <div className="space-y-1 text-sm">
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Calories:</span>
+                                                                <span className="font-medium">{mixture.totalNutrition.calories || 0} kcal</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Carbs:</span>
+                                                                <span className="font-medium">{mixture.totalNutrition.carbohydrate}g</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Protein:</span>
+                                                                <span className="font-medium">{mixture.totalNutrition.protein}g</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Fat:</span>
+                                                                <span className="font-medium">{mixture.totalNutrition.fat}g</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Per 100g */}
+                                                    <div className="bg-white p-3 rounded">
+                                                        <h5 className="text-xs font-semibold text-purple-700 uppercase mb-2">
+                                                            Per 100g
+                                                        </h5>
+                                                        <div className="space-y-1 text-sm">
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Calories:</span>
+                                                                <span className="font-medium">
+                                                                    {Math.round(((mixture.totalNutrition.calories || 0) / mixture.totalGrams) * 100)} kcal
+                                                                </span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Carbs:</span>
+                                                                <span className="font-medium">
+                                                                    {Math.round(((mixture.totalNutrition.carbohydrate || 0) / mixture.totalGrams) * 100)}g
+                                                                </span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Protein:</span>
+                                                                <span className="font-medium">
+                                                                    {Math.round(((mixture.totalNutrition.protein || 0) / mixture.totalGrams) * 100)}g
+                                                                </span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                <span className="text-gray-600">Fat:</span>
+                                                                <span className="font-medium">
+                                                                    {Math.round(((mixture.totalNutrition.fat || 0) / mixture.totalGrams) * 100)}g
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Micronutrients Toggle */}
+                                                    <button
+                                                        onClick={() => toggleMicros(mixture.extid)}
+                                                        className="text-sm text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1"
+                                                    >
+                                                        {expandedMicros.has(mixture.extid) ? (
+                                                            <>
+                                                                <ChevronDown className="h-4 w-4" />
+                                                                Hide Vitamins & Minerals
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <ChevronRight className="h-4 w-4" />
+                                                                Show Vitamins & Minerals
+                                                            </>
+                                                        )}
+                                                    </button>
+
+                                                    {/* Micronutrients */}
+                                                    {expandedMicros.has(mixture.extid) && (
+                                                        <div className="space-y-2">
+                                                            <div className="bg-white p-3 rounded">
+                                                                <h5 className="text-xs font-semibold text-purple-700 uppercase mb-2">
+                                                                    Vitamins (Per Batch)
+                                                                </h5>
+                                                                <div className="space-y-1 text-sm">
+                                                                    <div className="flex justify-between">
+                                                                        <span className="text-gray-600">Vitamin D:</span>
+                                                                        <span className="font-medium">{mixture.totalNutrition.vitaminD || 0}mg</span>
+                                                                    </div>
+                                                                    <div className="flex justify-between">
+                                                                        <span className="text-gray-600">Vitamin E:</span>
+                                                                        <span className="font-medium">{mixture.totalNutrition.vitaminE || 0}mg</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div className="bg-white shadow rounded-lg p-12 text-center text-gray-500">
+                        No mixtures found.
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -84,13 +84,14 @@ export default function Nutrition() {
     return (
         <div className="px-4 py-6 sm:px-0">
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                    <Scale className="h-8 w-8 mr-3 text-blue-600" />
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
+                    <Scale className="h-7 w-7 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-blue-600" />
                     Nutrition Profiles
                 </h1>
             </div>
 
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            {/* Desktop Table View */}
+            <div className="hidden sm:block bg-white shadow overflow-hidden sm:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                     <tr>
@@ -195,6 +196,54 @@ export default function Nutrition() {
                     )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="sm:hidden space-y-3">
+                {sortedNutritions && sortedNutritions.length > 0 ? (
+                    sortedNutritions.map((nutrition) => (
+                        <div key={nutrition.extid} className="bg-white shadow rounded-lg overflow-hidden p-4">
+                            <h3 className="text-lg font-medium text-gray-900 mb-3">{nutrition.name}</h3>
+
+                            <div className="space-y-2">
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-blue-50 p-2 rounded">
+                                        <p className="text-xs text-blue-600 font-medium">Carbs</p>
+                                        <p className="text-sm font-semibold text-gray-900">{nutrition.carbohydrate}g</p>
+                                    </div>
+                                    <div className="bg-red-50 p-2 rounded">
+                                        <p className="text-xs text-red-600 font-medium">Fat</p>
+                                        <p className="text-sm font-semibold text-gray-900">{nutrition.fat}g</p>
+                                    </div>
+                                    <div className="bg-green-50 p-2 rounded">
+                                        <p className="text-xs text-green-600 font-medium">Protein</p>
+                                        <p className="text-sm font-semibold text-gray-900">{nutrition.protein}g</p>
+                                    </div>
+                                    <div className="bg-yellow-50 p-2 rounded">
+                                        <p className="text-xs text-yellow-600 font-medium">Sugar</p>
+                                        <p className="text-sm font-semibold text-gray-900">{nutrition.sugar}g</p>
+                                    </div>
+                                </div>
+
+                                <div className="border-t border-gray-200 pt-2 mt-2">
+                                    <p className="text-xs font-medium text-gray-500 mb-1">Vitamins</p>
+                                    <div className="flex items-center justify-between text-sm">
+                                        <span className="text-gray-600">Vitamin D:</span>
+                                        <span className="font-medium text-gray-900">{nutrition.vitaminD ?? '-'}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between text-sm">
+                                        <span className="text-gray-600">Vitamin E:</span>
+                                        <span className="font-medium text-gray-900">{nutrition.vitaminE ?? '-'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="bg-white shadow rounded-lg p-12 text-center text-gray-500">
+                        No nutrition profiles found.
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,8 +1,8 @@
-# QA Environment Setup Guide
+# cpss Environment Setup Guide
 
 ## Purpose
 
-This guide covers the **one-time setup** for provisioning a new QA/demo VPS environment. For day-to-day operations on a running environment, see `qa-hosting.md`.
+This guide covers the **one-time setup** for provisioning a new cpss/demo VPS environment. For day-to-day operations on a running environment, see `cpss-hosting.md`.
 
 ---
 
@@ -166,7 +166,7 @@ RDS_PORT=3306
 RDS_DB_NAME=cpss
 RDS_USERNAME=cpss_user
 RDS_PASSWORD=$RDS_PASSWORD
-SPRING_PROFILES_ACTIVE=qa
+SPRING_PROFILES_ACTIVE=cpss
 SERVER_PORT=8080
 EOF
 
@@ -362,7 +362,7 @@ Your environment should now be accessible at:
 | API | http://YOUR_IP/api/ |
 | Swagger | http://YOUR_IP/swagger-ui.html |
 
-For ongoing operations (deployments, troubleshooting, etc.), see **`qa-hosting.md`**.
+For ongoing operations (deployments, troubleshooting, etc.), see **`cpss-hosting.md`**.
 
 ---
 

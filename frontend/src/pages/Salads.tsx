@@ -163,14 +163,14 @@ export default function Salads() {
 
     return (
         <div className="px-4 py-6 sm:px-0">
-            <div className="flex items-center justify-between mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                    <SaladIcon className="h-8 w-8 mr-3 text-green-600" />
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
+                    <SaladIcon className="h-7 w-7 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-green-600" />
                     Salads
                 </h1>
                 <button
                     onClick={() => navigate('/salad-builder')}
-                    className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                     <Plus className="h-5 w-5 mr-2" />
                     Create Salad
@@ -180,14 +180,14 @@ export default function Salads() {
             {/* Filter Tabs */}
             <div className="mb-4">
                 <div className="border-b border-gray-200">
-                    <nav className="-mb-px flex space-x-8">
+                    <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto">
                         <button
                             onClick={() => setFilter('all')}
                             className={`${
                                 filter === 'all'
                                     ? 'border-green-500 text-green-600'
                                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex-shrink-0`}
                         >
                             All Salads
                         </button>
@@ -197,7 +197,7 @@ export default function Salads() {
                                 filter === 'system'
                                     ? 'border-green-500 text-green-600'
                                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex-shrink-0`}
                         >
                             System Salads
                         </button>
@@ -207,7 +207,7 @@ export default function Salads() {
                                 filter === 'user'
                                     ? 'border-green-500 text-green-600'
                                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex-shrink-0`}
                         >
                             My Salads
                         </button>
@@ -215,7 +215,8 @@ export default function Salads() {
                 </div>
             </div>
 
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            {/* Desktop Table View */}
+            <div className="hidden sm:block bg-white shadow overflow-hidden sm:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                     <tr>
@@ -437,6 +438,182 @@ export default function Salads() {
                     )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="sm:hidden space-y-4">
+                {filteredAndSortedSalads && filteredAndSortedSalads.length > 0 ? (
+                    filteredAndSortedSalads.map((salad) => (
+                        <div key={salad.extid} className="bg-white shadow rounded-lg overflow-hidden">
+                            {/* Card Header */}
+                            <div className="p-4">
+                                <div className="flex items-start justify-between mb-2">
+                                    <div className="flex-1">
+                                        <h3 className="text-lg font-medium text-gray-900">{salad.name}</h3>
+                                        {salad.description && (
+                                            <p className="mt-1 text-sm text-gray-500">{salad.description}</p>
+                                        )}
+                                    </div>
+                                    <span className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium flex-shrink-0 ${
+                                        salad.userExtid ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                                    }`}>
+                                        {salad.userExtid ? 'User' : 'System'}
+                                    </span>
+                                </div>
+
+                                {/* Actions */}
+                                <div className="flex items-center gap-2 mt-3">
+                                    <button
+                                        onClick={() => toggleRow(salad.extid)}
+                                        className="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                                    >
+                                        {expandedRows.has(salad.extid) ? (
+                                            <>
+                                                <ChevronDown className="h-4 w-4 mr-1" />
+                                                Hide Details
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ChevronRight className="h-4 w-4 mr-1" />
+                                                Show Details
+                                            </>
+                                        )}
+                                    </button>
+                                    {!salad.userExtid && (
+                                        <button
+                                            onClick={() => handleMakeItMyOwn(salad)}
+                                            className="px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-green-600 bg-white hover:bg-green-50"
+                                            title="Make It My Own"
+                                        >
+                                            <Copy className="h-4 w-4" />
+                                        </button>
+                                    )}
+                                    {salad.userExtid && (
+                                        <>
+                                            <button
+                                                onClick={() => navigate(`/salad-builder/${salad.extid}`)}
+                                                className="px-3 py-2 border border-blue-600 rounded-md text-sm font-medium text-blue-600 bg-white hover:bg-blue-50"
+                                                title="Edit"
+                                            >
+                                                <Edit className="h-4 w-4" />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(salad)}
+                                                className="px-3 py-2 border border-red-600 rounded-md text-sm font-medium text-red-600 bg-white hover:bg-red-50"
+                                                title="Delete"
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Expanded Details */}
+                            {expandedRows.has(salad.extid) && (
+                                <div className="border-t border-gray-200 bg-gray-50 p-4 space-y-4">
+                                    {/* Ingredients */}
+                                    <div>
+                                        <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                                            Ingredients ({salad.totalGrams}g total)
+                                        </h4>
+                                        <div className="space-y-2">
+                                            {salad.foodIngredients.map((ing) => (
+                                                <div key={ing.extid} className="flex justify-between text-sm bg-white p-2 rounded">
+                                                    <span className="text-gray-900">{ing.foodName || ing.foodExtid}</span>
+                                                    <span className="text-gray-500">{ing.grams}g</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Nutrition */}
+                                    {salad.totalNutrition && (
+                                        <div>
+                                            <h4 className="text-sm font-semibold text-gray-700 mb-2">Nutrition (Total Batch)</h4>
+                                            <div className="bg-white rounded p-3 space-y-1">
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-600">Calories:</span>
+                                                    <span className="font-medium">{salad.totalNutrition.calories || 0} cal</span>
+                                                </div>
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-600">Carbs:</span>
+                                                    <span className="font-medium">{salad.totalNutrition.carbohydrate || 0}g</span>
+                                                </div>
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-600">Protein:</span>
+                                                    <span className="font-medium">{salad.totalNutrition.protein || 0}g</span>
+                                                </div>
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-600">Fat:</span>
+                                                    <span className="font-medium">{salad.totalNutrition.fat || 0}g</span>
+                                                </div>
+                                                <button
+                                                    onClick={() => toggleMicros(salad.extid)}
+                                                    className="text-xs text-green-600 hover:text-green-800 flex items-center mt-2"
+                                                >
+                                                    {expandedMicros.has(salad.extid) ? 'Hide' : 'Show'} micronutrients
+                                                    {expandedMicros.has(salad.extid) ? (
+                                                        <ChevronDown className="h-3 w-3 ml-1" />
+                                                    ) : (
+                                                        <ChevronRight className="h-3 w-3 ml-1" />
+                                                    )}
+                                                </button>
+                                                {expandedMicros.has(salad.extid) && (
+                                                    <div className="pt-2 mt-2 border-t border-gray-200 space-y-1">
+                                                        <div className="flex justify-between text-sm">
+                                                            <span className="text-gray-600">Fiber:</span>
+                                                            <span className="font-medium">{salad.totalNutrition.fiber || 0}g</span>
+                                                        </div>
+                                                        <div className="flex justify-between text-sm">
+                                                            <span className="text-gray-600">Sugar:</span>
+                                                            <span className="font-medium">{salad.totalNutrition.sugar || 0}g</span>
+                                                        </div>
+                                                        <div className="flex justify-between text-sm">
+                                                            <span className="text-gray-600">Vitamin D:</span>
+                                                            <span className="font-medium">{salad.totalNutrition.vitaminD || 0}mcg</span>
+                                                        </div>
+                                                        <div className="flex justify-between text-sm">
+                                                            <span className="text-gray-600">Vitamin E:</span>
+                                                            <span className="font-medium">{salad.totalNutrition.vitaminE || 0}mg</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Flavor */}
+                                    <div>
+                                        <h4 className="text-sm font-semibold text-gray-700 mb-2">Flavor Profile</h4>
+                                        <div className="bg-white rounded p-3 space-y-1">
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-gray-600">Crunch:</span>
+                                                <span className="font-medium">{salad.totalCrunch || 0}</span>
+                                            </div>
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-gray-600">Punch:</span>
+                                                <span className="font-medium">{salad.totalPunch || 0}</span>
+                                            </div>
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-gray-600">Sweet:</span>
+                                                <span className="font-medium">{salad.totalSweet || 0}</span>
+                                            </div>
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-gray-600">Savory:</span>
+                                                <span className="font-medium">{salad.totalSavory || 0}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ))
+                ) : (
+                    <div className="bg-white shadow rounded-lg p-12 text-center text-gray-500">
+                        No salads found.
+                    </div>
+                )}
             </div>
         </div>
     );

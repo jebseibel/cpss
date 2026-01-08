@@ -112,8 +112,8 @@ export default function MakeMixture() {
                     <ArrowLeft className="h-4 w-4 mr-1" />
                     Back to Mixtures
                 </button>
-                <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                    <Blend className="h-8 w-8 mr-3 text-purple-600" />
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
+                    <Blend className="h-7 w-7 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-purple-600" />
                     {isEditMode ? 'Edit Mixture' : 'Make a Mixture'}
                 </h1>
                 <p className="mt-2 text-sm text-gray-600">
@@ -124,7 +124,7 @@ export default function MakeMixture() {
             </div>
 
             <div className="bg-white shadow sm:rounded-lg">
-                <div className="px-6 py-6 space-y-6">
+                <div className="px-4 py-4 sm:px-6 sm:py-6 space-y-6">
                     {/* Name Input */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">
@@ -173,29 +173,31 @@ export default function MakeMixture() {
                                 return (
                                     <div
                                         key={food.extid}
-                                        className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+                                        className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 p-3 rounded-lg border transition-colors ${
                                             isSelected
                                                 ? 'bg-purple-50 border-purple-300'
                                                 : 'bg-white border-gray-200 hover:border-gray-300'
                                         }`}
                                     >
-                                        <input
-                                            type="checkbox"
-                                            checked={isSelected}
-                                            onChange={(e) => {
-                                                if (e.target.checked) {
-                                                    setIngredients([...ingredients, { foodExtid: food.extid, grams: 10 }]);
-                                                } else {
-                                                    setIngredients(ingredients.filter(ing => ing.foodExtid !== food.extid));
-                                                }
-                                            }}
-                                            className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer"
-                                        />
-                                        <span className={`flex-1 ${isSelected ? 'text-purple-900 font-medium' : 'text-gray-700'}`}>
-                                            {food.name}
-                                        </span>
+                                        <div className="flex items-center gap-3 flex-1">
+                                            <input
+                                                type="checkbox"
+                                                checked={isSelected}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setIngredients([...ingredients, { foodExtid: food.extid, grams: 10 }]);
+                                                    } else {
+                                                        setIngredients(ingredients.filter(ing => ing.foodExtid !== food.extid));
+                                                    }
+                                                }}
+                                                className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer flex-shrink-0"
+                                            />
+                                            <span className={`flex-1 ${isSelected ? 'text-purple-900 font-medium' : 'text-gray-700'}`}>
+                                                {food.name}
+                                            </span>
+                                        </div>
                                         {isSelected && (
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 ml-8 sm:ml-0">
                                                 <input
                                                     type="number"
                                                     min="1"
@@ -206,7 +208,7 @@ export default function MakeMixture() {
                                                         newIngredients[ingredientIndex] = { ...newIngredients[ingredientIndex], grams };
                                                         setIngredients(newIngredients);
                                                     }}
-                                                    className="w-20 rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm border px-2 py-1 text-center"
+                                                    className="w-16 sm:w-20 rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 text-sm border px-2 py-1 text-center"
                                                 />
                                                 <span className="text-sm text-gray-500">g</span>
                                             </div>
@@ -229,10 +231,10 @@ export default function MakeMixture() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
+                    <div className="flex flex-col sm:flex-row sm:justify-end gap-3 pt-6 border-t border-gray-200">
                         <button
                             onClick={() => navigate('/mixtures')}
-                            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                            className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                         >
                             Cancel
                         </button>
@@ -245,7 +247,7 @@ export default function MakeMixture() {
                                 createMixtureMutation.isPending ||
                                 updateMixtureMutation.isPending
                             }
-                            className="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full sm:w-auto px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {(createMixtureMutation.isPending || updateMixtureMutation.isPending)
                                 ? (isEditMode ? 'Updating...' : 'Creating...')
