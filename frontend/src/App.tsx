@@ -3,6 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
+import ForgotUsername from './pages/ForgotUsername';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import BeginHere from './pages/BeginHere';
 import MyStory from './pages/MyStory';
@@ -30,6 +33,9 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-username" element={<ForgotUsername />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route
                         path="/"
                         element={

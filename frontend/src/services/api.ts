@@ -101,6 +101,9 @@ export const mixtureApi = {
 export const authApi = {
     login: (credentials: LoginRequest) => apiClient.post<AuthResponse>('/auth/login', credentials),
     register: (userData: RegisterRequest) => apiClient.post<AuthResponse>('/auth/register', userData),
+    forgotUsername: (email: string) => apiClient.post<{ message: string }>('/auth/forgot-username', { email }),
+    forgotPassword: (email: string) => apiClient.post<{ message: string }>('/auth/forgot-password', { email }),
+    resetPassword: (token: string, newPassword: string) => apiClient.post<{ message: string }>('/auth/reset-password', { token, newPassword }),
 };
 
 // Auth helper functions

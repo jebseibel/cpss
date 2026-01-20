@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { authApi, authHelpers } from '../services/api';
 import { LogIn, UserPlus } from 'lucide-react';
 
@@ -128,6 +128,23 @@ export default function Login() {
                                 )}
                             </button>
                         </div>
+
+                        {isLogin && (
+                            <div className="flex flex-col space-y-2">
+                                <Link
+                                    to="/forgot-username"
+                                    className="text-center text-sm text-green-600 hover:text-green-700 font-medium"
+                                >
+                                    Forgot username?
+                                </Link>
+                                <Link
+                                    to="/forgot-password"
+                                    className="text-center text-sm text-green-600 hover:text-green-700 font-medium"
+                                >
+                                    Forgot password?
+                                </Link>
+                            </div>
+                        )}
                     </form>
 
                     <div className="mt-6">
