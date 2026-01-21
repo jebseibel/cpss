@@ -9,10 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "password_reset_token", indexes = {
-    @Index(name = "idx_password_reset_token_token", columnList = "token"),
-    @Index(name = "idx_password_reset_token_user_extid", columnList = "user_extid")
-})
+@Table(name = "password_reset_token")
 public class PasswordResetTokenDb extends BaseDb {
 
     @Column(name = "user_extid", length = 36, nullable = false)

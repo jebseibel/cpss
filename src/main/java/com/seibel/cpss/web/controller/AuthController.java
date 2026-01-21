@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 @Validated
@@ -49,11 +51,13 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Login with username and password")
     public ResponseEntity<?> login(@Valid @RequestBody RequestLogin request) {
+        log.info("Login attempt for username: {}", request.getUsername());
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
         } catch (BadCredentialsException e) {
+            log.warn("Login failed for username: {} - Invalid credentials", request.getUsername());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
 
@@ -62,6 +66,8 @@ public class AuthController {
 
         UserDb user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        log.info("Login successful for username: {}, token generated", request.getUsername());
 
         ResponseAuth response = ResponseAuth.builder()
                 .token(token)
@@ -128,9 +134,12 @@ public class AuthController {
     @PostMapping("/forgot-password")
     @Operation(summary = "Send password reset link to email")
     public ResponseEntity<?> forgotPassword(@Valid @RequestBody RequestForgotPassword request) {
+        log.info("Forgot password request received for email: {}", request.getEmail());
         try {
             passwordResetService.initiatePasswordReset(request.getEmail());
+            log.info("Forgot password request processed for email: {}", request.getEmail());
         } catch (Exception e) {
+            log.error("Forgot password request failed for email: {}", request.getEmail(), e);
             // Log but don't fail the request to avoid revealing if email exists
             return ResponseEntity.ok(ResponseMessage.builder()
                     .message("If that email exists, a reset link has been sent")
@@ -145,12 +154,15 @@ public class AuthController {
     @PostMapping("/reset-password")
     @Operation(summary = "Reset password using token")
     public ResponseEntity<?> resetPassword(@Valid @RequestBody RequestResetPassword request) {
+        log.info("Reset password request received with token: {}", request.getToken());
         try {
             passwordResetService.resetPassword(request.getToken(), request.getNewPassword());
+            log.info("Password reset successful for token: {}", request.getToken());
             return ResponseEntity.ok(ResponseMessage.builder()
                     .message("Password has been reset successfully")
                     .build());
         } catch (Exception e) {
+            log.error("Password reset failed for token: {}", request.getToken(), e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
                     .message("Failed to reset password: " + e.getMessage())
                     .build());

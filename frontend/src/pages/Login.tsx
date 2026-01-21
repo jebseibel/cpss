@@ -19,15 +19,20 @@ export default function Login() {
 
         try {
             if (isLogin) {
+                console.log('[Login] Attempting login for username:', username);
                 const response = await authApi.login({ username, password });
                 authHelpers.saveToken(response.data.token);
+                console.log('[Login] Login successful, token saved');
                 navigate('/');
             } else {
+                console.log('[Login] Attempting registration for username:', username);
                 const response = await authApi.register({ username, password, email });
                 authHelpers.saveToken(response.data.token);
+                console.log('[Login] Registration successful, token saved');
                 navigate('/');
             }
         } catch (err: any) {
+            console.error('[Login] Login failed:', err);
             setError(err.response?.data || 'Authentication failed. Please try again.');
         } finally {
             setLoading(false);
@@ -42,7 +47,7 @@ export default function Login() {
                         Crunch Punch Sweet & Savory
                     </h3>
                     <h2 className="mt-2 text-center text-xl text-gray-900">
-                        (Custom Profile Salad System)
+                        A Healthy Salad System
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         {isLogin ? 'Sign in to your account' : 'Create a new account'}

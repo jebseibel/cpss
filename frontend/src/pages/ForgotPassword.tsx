@@ -17,10 +17,13 @@ export default function ForgotPassword() {
         setLoading(true);
 
         try {
+            console.log('[ForgotPassword] Requesting password reset for email:', email);
             await authApi.forgotPassword(email);
+            console.log('[ForgotPassword] Password reset email sent');
             setSuccess('If that email exists, a reset link has been sent');
             setEmail('');
         } catch (err: any) {
+            console.error('[ForgotPassword] Password reset request failed:', err);
             setError(err.response?.data?.message || 'An error occurred. Please try again.');
         } finally {
             setLoading(false);

@@ -22,7 +22,7 @@ cd /home/jeb/projects/personal/cpss && ./gradlew clean build -x test && scp buil
 cd /home/jeb/projects/personal/cpss/frontend && npx vite build && scp -r dist/* cpss:/var/www/cpss/
 
 # 6. Drop and rebuild database
-ssh cpss 'source /opt/cpss/.env && mysql -u cpss_user -p"$RDS_PASSWORD" -e "DROP DATABASE cpss; CREATE DATABASE cpss;"
+ssh cpss 'source /opt/cpss/.env && mysql -u cpss_user -p"$RDS_PASSWORD" -e "DROP DATABASE cpss; CREATE DATABASE cpss;"'
 
 # 7. Restart service
 ssh cpss "systemctl restart cpss"

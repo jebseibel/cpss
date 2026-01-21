@@ -16,9 +16,11 @@ export default function ResetPassword() {
     useEffect(() => {
         const tokenParam = searchParams.get('token');
         if (!tokenParam) {
+            console.warn('[ResetPassword] No token found in URL');
             setError('Invalid reset link. Token is missing.');
             return;
         }
+        console.log('[ResetPassword] Page loaded with token:', tokenParam);
         setToken(tokenParam);
     }, [searchParams]);
 
@@ -42,7 +44,9 @@ export default function ResetPassword() {
         setLoading(true);
 
         try {
+            console.log('[ResetPassword] Submitting password reset for token:', token);
             await authApi.resetPassword(token, newPassword);
+            console.log('[ResetPassword] Password reset successful');
             setSuccess('Password has been reset successfully');
             setNewPassword('');
             setConfirmPassword('');
@@ -52,6 +56,7 @@ export default function ResetPassword() {
                 navigate('/login');
             }, 2000);
         } catch (err: any) {
+            console.error('[ResetPassword] Password reset failed:', err);
             setError(err.response?.data?.message || 'Failed to reset password. The link may have expired.');
         } finally {
             setLoading(false);

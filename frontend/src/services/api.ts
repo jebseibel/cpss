@@ -33,6 +33,7 @@ apiClient.interceptors.request.use(
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        console.log('[API] Request:', config.method?.toUpperCase(), config.url, 'Token:', config.headers.Authorization ? 'Present' : 'Missing');
         return config;
     },
     (error) => {
@@ -46,6 +47,10 @@ apiClient.interceptors.response.use(
     (error) => {
         // Don't redirect on auth endpoints (login/register) - let the form handle errors
         const isAuthEndpoint = error.config?.url?.includes('/auth/');
+
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            console.error('[API] Auth error:', error.response?.status, error.response?.data);
+        }
 
         if ((error.response?.status === 403 || error.response?.status === 401) && !isAuthEndpoint) {
             // Clear invalid token
