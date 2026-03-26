@@ -30,3 +30,5 @@ Rebuild the database - means to trigger the n8n workflow
 
 delete or rebuild the database means; run the docker 'n8n' webhook: http://localhost:5678/webhook/clear-cpss-db
 It is a GET
+
+IMPORTANT: need to add toxicity guidelines and warning for possible side effects and diabetes.
