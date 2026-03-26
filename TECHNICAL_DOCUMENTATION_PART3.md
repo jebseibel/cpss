@@ -43,7 +43,7 @@ docker run --name cpss-mysql \
   -e MYSQL_ROOT_PASSWORD=rootpass \
   -e MYSQL_DATABASE=cpss \
   -e MYSQL_USER=cpss_user \
-  -e MYSQL_PASSWORD=your_password \
+  -e MYSQL_PASSWORD=[your_password] \
   -p 3306:3306 \
   -d mysql:8.0
 ```
@@ -57,11 +57,11 @@ RDS_HOSTNAME=localhost
 RDS_PORT=3306
 RDS_DB_NAME=cpss
 RDS_USERNAME=cpss_user
-RDS_PASSWORD=your_password
+RDS_PASSWORD=[your_password]
 
 # Email (Gmail)
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
+MAIL_HOST=[smtp.gmail.com]
+MAIL_PORT=[GOOGLE_SMTP_PORT]
 MAIL_USERNAME=your-email@gmail.com
 MAIL_PASSWORD=your-app-specific-password
 MAIL_FROM=noreply@cpss.com
