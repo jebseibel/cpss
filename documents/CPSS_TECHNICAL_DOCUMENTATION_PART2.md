@@ -736,11 +736,11 @@ calories = (totalCarbs × 4) + (totalProtein × 4) + (totalFat × 9)
 - **Port:** 8080 (Spring Boot default)
 
 **Deployment Package:**
-- Single JAR file: `build/libs/cpss-0.0.2-SNAPSHOT.jar`
+- Single JAR file: `../build/libs/cpss-0.0.2-SNAPSHOT.jar`
 - Contains:
   - Compiled Java classes
   - Spring Boot dependencies
-  - Static frontend (built React app in `src/main/resources/static/`)
+  - Static frontend (built React app in `../src/main/resources/static`)
   - Database migrations (Liquibase changelogs)
 
 **Environment Variables (Elastic Beanstalk):**

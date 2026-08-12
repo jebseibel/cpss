@@ -12,7 +12,7 @@
 - IDE (IntelliJ IDEA recommended for Java, VS Code for frontend)
 
 **Optional Tools:**
-- Postman (API testing) - collection included in `documents/postman/`
+- Postman (API testing) - collection included in `postman`
 - Docker (for MySQL containerization)
 - n8n (for database reset automation)
 
@@ -50,7 +50,7 @@ docker run --name cpss-mysql \
 
 #### 3. Environment Configuration
 
-Create `.env` file in project root:
+Create `../.env` file in project root:
 ```bash
 # Database
 RDS_HOSTNAME=localhost
@@ -70,7 +70,7 @@ MAIL_FROM=noreply@cpss.com
 FRONTEND_URL=http://localhost:5173
 ```
 
-**Note:** `.env` file is git-ignored for security. Never commit credentials.
+**Note:** `../.env` file is git-ignored for security. Never commit credentials.
 
 #### 4. Backend Setup
 
@@ -118,13 +118,13 @@ The dev server proxies `/api` requests to `http://localhost:8080` (backend).
 
 1. **Open Project:** File → Open → Select `cpss` directory
 2. **SDK:** File → Project Structure → Project SDK → Java 21
-3. **Gradle:** IntelliJ auto-detects `build.gradle`
+3. **Gradle:** IntelliJ auto-detects `../build.gradle`
 4. **Lombok Plugin:** Settings → Plugins → Install "Lombok"
 5. **Enable Annotation Processing:** Settings → Build → Compiler → Annotation Processors → Enable
 6. **Run Configuration:**
    - Main class: `com.seibel.cpss.CpssApplication`
    - VM options: `-Dspring.profiles.active=dev`
-   - Environment variables: Load from `.env`
+   - Environment variables: Load from `../.env`
 
 #### VS Code (Frontend)
 
@@ -236,9 +236,9 @@ npm run build
 
 **What `buildDeployment` does:**
 1. Runs `npmInstall` (install frontend dependencies)
-2. Runs `npmBuild` (builds frontend to `frontend/dist/`)
+2. Runs `npmBuild` (builds frontend to `../frontend/dist`)
 3. Runs `cleanStatic` (clears old static files)
-4. Runs `copyFrontend` (copies `dist/` to `src/main/resources/static/`)
+4. Runs `copyFrontend` (copies `dist/` to `../src/main/resources/static`)
 5. Runs `build` (builds Spring Boot JAR with embedded frontend)
 
 ### Deployment to AWS Elastic Beanstalk
@@ -394,7 +394,7 @@ eb deploy --version <version-label>
 
 ### Application Configuration
 
-**File:** `src/main/resources/application.yml`
+**File:** `../src/main/resources/application.yml`
 
 ```yaml
 server:
@@ -448,7 +448,7 @@ logging:
 
 ### Frontend Configuration
 
-**File:** `frontend/vite.config.ts`
+**File:** `../frontend/vite.config.ts`
 
 ```typescript
 export default defineConfig({
@@ -696,7 +696,7 @@ public class RequestLogin {
 
 **In Code:**
 - No credentials in source code (use env vars)
-- `.env` file git-ignored
+- `../.env` file git-ignored
 - Secrets managed via AWS Secrets Manager (recommended)
 
 ### 4. API Security
@@ -755,7 +755,7 @@ public class RequestLogin {
 ### 7. Security Checklist
 
 **Development:**
-- [ ] Never commit `.env` file
+- [ ] Never commit `../.env` file
 - [ ] Use environment variables for secrets
 - [ ] Validate all user input
 - [ ] Sanitize error messages

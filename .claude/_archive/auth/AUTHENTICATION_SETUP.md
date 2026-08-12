@@ -117,26 +117,26 @@ CREATE TABLE users (
 ## Files Created/Modified
 
 ### Backend
-- `build.gradle` - Added dependencies
-- `src/main/java/com/seibel/cpss/database/db/entity/UserDb.java`
-- `src/main/java/com/seibel/cpss/database/db/repository/UserRepository.java`
-- `src/main/java/com/seibel/cpss/security/JwtUtil.java`
-- `src/main/java/com/seibel/cpss/security/CustomUserDetailsService.java`
-- `src/main/java/com/seibel/cpss/security/JwtAuthenticationFilter.java`
-- `src/main/java/com/seibel/cpss/config/SecurityConfig.java`
-- `src/main/java/com/seibel/cpss/web/request/RequestLogin.java`
-- `src/main/java/com/seibel/cpss/web/request/RequestRegister.java`
-- `src/main/java/com/seibel/cpss/web/response/ResponseAuth.java`
-- `src/main/java/com/seibel/cpss/web/controller/AuthController.java`
-- `src/main/resources/db/changelog/changes/006-users.yaml`
+- `../../../build.gradle` - Added dependencies
+- `../../../src/main/java/com/seibel/cpss/database/db/entity/UserDb.java`
+- `../../../src/main/java/com/seibel/cpss/database/db/repository/UserRepository.java`
+- `../../../src/main/java/com/seibel/cpss/security/JwtUtil.java`
+- `../../../src/main/java/com/seibel/cpss/security/CustomUserDetailsService.java`
+- `../../../src/main/java/com/seibel/cpss/security/JwtAuthenticationFilter.java`
+- `../../../src/main/java/com/seibel/cpss/config/SecurityConfig.java`
+- `../../../src/main/java/com/seibel/cpss/web/request/RequestLogin.java`
+- `../../../src/main/java/com/seibel/cpss/web/request/RequestRegister.java`
+- `../../../src/main/java/com/seibel/cpss/web/response/ResponseAuth.java`
+- `../../../src/main/java/com/seibel/cpss/web/controller/AuthController.java`
+- `../../../src/main/resources/db/changelog/changes/006-users.yaml`
 
 ### Frontend
-- `frontend/src/types/api.ts` - Added auth types
-- `frontend/src/services/api.ts` - Added auth API and interceptor
-- `frontend/src/pages/Login.tsx`
-- `frontend/src/components/ProtectedRoute.tsx`
-- `frontend/src/components/Layout.tsx` - Added logout button
-- `frontend/src/App.tsx` - Added login route and protected routes
+- `../../../frontend/src/types/api.ts` - Added auth types
+- `../../../frontend/src/services/api.ts` - Added auth API and interceptor
+- `../../../frontend/src/pages/Login.tsx`
+- `../../../frontend/src/components/ProtectedRoute.tsx`
+- `../../../frontend/src/components/Layout.tsx` - Added logout button
+- `../../../frontend/src/App.tsx` - Added login route and protected routes
 
 ## Next Steps
 

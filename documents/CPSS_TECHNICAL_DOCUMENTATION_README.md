@@ -5,7 +5,7 @@ This comprehensive technical documentation is split across three files for easie
 ## Documentation Structure
 
 ### Part 1: Foundation & Architecture
-**File:** `TECHNICAL_DOCUMENTATION.md`
+**File:** `CPSS_TECHNICAL_DOCUMENTATION.md`
 
 **Contents:**
 - Executive Summary
@@ -21,7 +21,7 @@ This comprehensive technical documentation is split across three files for easie
 ---
 
 ### Part 2: Security, APIs & Deployment
-**File:** `TECHNICAL_DOCUMENTATION_PART2.md`
+**File:** `CPSS_TECHNICAL_DOCUMENTATION_PART2.md`
 
 **Contents:**
 - Authentication & Security (JWT flows, password reset)
@@ -34,7 +34,7 @@ This comprehensive technical documentation is split across three files for easie
 ---
 
 ### Part 3: Development & Operations
-**File:** `TECHNICAL_DOCUMENTATION_PART3.md`
+**File:** `CPSS_TECHNICAL_DOCUMENTATION_PART3.md`
 
 **Contents:**
 - Development Setup (prerequisites, installation)
@@ -255,7 +255,7 @@ curl http://localhost:5678/webhook/clear-cpss-db  # n8n webhook
 **Troubleshooting:**
 - See Part 3: Troubleshooting Guide for common issues
 - Check application logs: `eb logs` or `./gradlew bootRun`
-- Verify environment variables in `.env` file
+- Verify environment variables in `../.env` file
 
 **Contributing:**
 - Follow existing code patterns (layered architecture)
