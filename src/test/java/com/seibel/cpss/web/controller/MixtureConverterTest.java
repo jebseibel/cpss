@@ -5,6 +5,7 @@ import com.seibel.cpss.common.domain.Mixture;
 import com.seibel.cpss.common.domain.MixtureIngredient;
 import com.seibel.cpss.common.domain.Nutrition;
 import com.seibel.cpss.service.FoodService;
+import com.seibel.cpss.service.NutritionCalculator;
 import com.seibel.cpss.web.response.ResponseMixture;
 import com.seibel.cpss.web.response.ResponseNutrition;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,10 @@ class MixtureConverterTest {
 
     @BeforeEach
     void setUp() {
-        converter = new MixtureConverter(foodService);
+        // A real NutritionCalculator, not a mock: it is pure arithmetic with no collaborators,
+        // so using the real one means these tests still verify the actual scaling and calorie
+        // math rather than a stubbed answer.
+        converter = new MixtureConverter(foodService, new NutritionCalculator());
     }
 
     @Test

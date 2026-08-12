@@ -4,6 +4,7 @@ import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Mixture;
 import com.seibel.cpss.service.FoodService;
 import com.seibel.cpss.service.MixtureService;
+import com.seibel.cpss.service.NutritionCalculator;
 import com.seibel.cpss.web.request.RequestMixtureCreate;
 import com.seibel.cpss.web.request.RequestMixtureUpdate;
 import com.seibel.cpss.web.response.ResponseNutrition;
@@ -80,6 +81,7 @@ public class MixtureController {
 class MixtureConverter {
 
     private final FoodService foodService;
+    private final NutritionCalculator nutritionCalculator;
 
     Mixture toDomain(RequestMixtureCreate request, String userExtid) {
         Mixture mixture = Mixture.builder()
@@ -147,8 +149,8 @@ class MixtureConverter {
             }
         }
 
-        // Calculate total nutrition from ingredients
-        ResponseNutrition totalNutrition = calculateTotalNutrition(mixture.getIngredients());
+        ResponseNutrition totalNutrition =
+                toResponseNutrition(nutritionCalculator.totalNutrition(toWeightedFoods(mixture.getIngredients())));
 
         return ResponseMixture.builder()
                 .extid(mixture.getExtid())
@@ -164,55 +166,31 @@ class MixtureConverter {
                 .build();
     }
 
-    private ResponseNutrition calculateTotalNutrition(List<com.seibel.cpss.common.domain.MixtureIngredient> ingredients) {
-        if (ingredients == null || ingredients.isEmpty()) {
+    /** Reduces mixture ingredients to the (food, grams) pairs the calculator works in. */
+    private List<NutritionCalculator.WeightedFood> toWeightedFoods(
+            List<com.seibel.cpss.common.domain.MixtureIngredient> ingredients) {
+        if (ingredients == null) {
             return null;
         }
-
-        int totalCarbs = 0;
-        int totalFat = 0;
-        int totalProtein = 0;
-        int totalSugar = 0;
-        int totalFiber = 0;
-        int totalVitaminD = 0;
-        int totalVitaminE = 0;
-
-        for (com.seibel.cpss.common.domain.MixtureIngredient ingredient : ingredients) {
-            if (ingredient.getFood() != null && ingredient.getFood().getNutrition() != null) {
-                com.seibel.cpss.common.domain.Nutrition nutrition = ingredient.getFood().getNutrition();
-                int grams = ingredient.getGrams();
-
-                // Scale nutrition values by grams (nutrition is per 100g)
-                totalCarbs += scaleNutrient(nutrition.getCarbohydrate(), grams);
-                totalFat += scaleNutrient(nutrition.getFat(), grams);
-                totalProtein += scaleNutrient(nutrition.getProtein(), grams);
-                totalSugar += scaleNutrient(nutrition.getSugar(), grams);
-                totalFiber += scaleNutrient(nutrition.getFiber(), grams);
-                totalVitaminD += scaleNutrient(nutrition.getVitaminD(), grams);
-                totalVitaminE += scaleNutrient(nutrition.getVitaminE(), grams);
-            }
-        }
-
-        // Calculate calories from macros (4 cal/g for carbs and protein, 9 cal/g for fat)
-        int totalCalories = (totalCarbs * 4) + (totalProtein * 4) + (totalFat * 9);
-
-        return ResponseNutrition.builder()
-                .calories(totalCalories)
-                .carbohydrate(totalCarbs)
-                .fat(totalFat)
-                .protein(totalProtein)
-                .sugar(totalSugar)
-                .fiber(totalFiber)
-                .vitaminD(totalVitaminD)
-                .vitaminE(totalVitaminE)
-                .build();
+        return ingredients.stream()
+                .map(i -> new NutritionCalculator.WeightedFood(i.getFood(), i.getGrams()))
+                .toList();
     }
 
-    private int scaleNutrient(Integer nutrientPer100g, int grams) {
-        if (nutrientPer100g == null) {
-            return 0;
+    /** Null totals mean "no ingredients", which stays a null nutrition block on the response. */
+    private ResponseNutrition toResponseNutrition(NutritionCalculator.NutritionTotals totals) {
+        if (totals == null) {
+            return null;
         }
-        // Scale from per-100g to actual grams
-        return (nutrientPer100g * grams) / 100;
+        return ResponseNutrition.builder()
+                .calories(totals.calories())
+                .carbohydrate(totals.carbohydrate())
+                .fat(totals.fat())
+                .protein(totals.protein())
+                .sugar(totals.sugar())
+                .fiber(totals.fiber())
+                .vitaminD(totals.vitaminD())
+                .vitaminE(totals.vitaminE())
+                .build();
     }
 }

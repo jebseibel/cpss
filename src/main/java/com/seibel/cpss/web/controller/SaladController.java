@@ -3,6 +3,7 @@ package com.seibel.cpss.web.controller;
 import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Salad;
 import com.seibel.cpss.service.FoodService;
+import com.seibel.cpss.service.NutritionCalculator;
 import com.seibel.cpss.service.SaladService;
 import com.seibel.cpss.web.request.RequestSaladBuild;
 import com.seibel.cpss.web.request.RequestSaladCreate;
@@ -81,6 +82,7 @@ public class SaladController {
 class SaladConverter {
 
     private final FoodService foodService;
+    private final NutritionCalculator nutritionCalculator;
 
     Salad toDomain(RequestSaladCreate request, String userExtid) {
         Salad salad = Salad.builder()
@@ -148,11 +150,9 @@ class SaladConverter {
             }
         }
 
-        // Calculate total nutrition from ingredients
-        ResponseNutrition totalNutrition = calculateTotalNutrition(salad.getFoodIngredients());
-
-        // Calculate total flavor from ingredients
-        FlavorTotals flavorTotals = calculateTotalFlavor(salad.getFoodIngredients());
+        List<NutritionCalculator.WeightedFood> weighted = toWeightedFoods(salad.getFoodIngredients());
+        NutritionCalculator.NutritionTotals nutritionTotals = nutritionCalculator.totalNutrition(weighted);
+        NutritionCalculator.FlavorTotals flavorTotals = nutritionCalculator.totalFlavor(weighted);
 
         return ResponseSalad.builder()
                 .extid(salad.getExtid())
@@ -160,11 +160,11 @@ class SaladConverter {
                 .description(salad.getDescription())
                 .userExtid(salad.getUserExtid())
                 .foodIngredients(ingredientResponses)
-                .totalNutrition(totalNutrition)
-                .totalCrunch(flavorTotals.totalCrunch)
-                .totalPunch(flavorTotals.totalPunch)
-                .totalSweet(flavorTotals.totalSweet)
-                .totalSavory(flavorTotals.totalSavory)
+                .totalNutrition(toResponseNutrition(nutritionTotals))
+                .totalCrunch(flavorTotals.crunch())
+                .totalPunch(flavorTotals.punch())
+                .totalSweet(flavorTotals.sweet())
+                .totalSavory(flavorTotals.savory())
                 .totalGrams(totalGrams)
                 .active(salad.getActive())
                 .createdAt(salad.getCreatedAt())
@@ -172,93 +172,31 @@ class SaladConverter {
                 .build();
     }
 
-    private ResponseNutrition calculateTotalNutrition(List<com.seibel.cpss.common.domain.SaladFoodIngredient> ingredients) {
-        if (ingredients == null || ingredients.isEmpty()) {
+    /** Reduces salad ingredients to the (food, grams) pairs the calculator works in. */
+    private List<NutritionCalculator.WeightedFood> toWeightedFoods(
+            List<com.seibel.cpss.common.domain.SaladFoodIngredient> ingredients) {
+        if (ingredients == null) {
             return null;
         }
+        return ingredients.stream()
+                .map(i -> new NutritionCalculator.WeightedFood(i.getFood(), i.getGrams()))
+                .toList();
+    }
 
-        int totalCarbs = 0;
-        int totalFat = 0;
-        int totalProtein = 0;
-        int totalSugar = 0;
-        int totalFiber = 0;
-        int totalVitaminD = 0;
-        int totalVitaminE = 0;
-
-        for (com.seibel.cpss.common.domain.SaladFoodIngredient ingredient : ingredients) {
-            if (ingredient.getFood() != null && ingredient.getFood().getNutrition() != null) {
-                com.seibel.cpss.common.domain.Nutrition nutrition = ingredient.getFood().getNutrition();
-                int grams = ingredient.getGrams();
-
-                // Scale nutrition values by grams (nutrition is per 100g)
-                totalCarbs += scaleNutrient(nutrition.getCarbohydrate(), grams);
-                totalFat += scaleNutrient(nutrition.getFat(), grams);
-                totalProtein += scaleNutrient(nutrition.getProtein(), grams);
-                totalSugar += scaleNutrient(nutrition.getSugar(), grams);
-                totalFiber += scaleNutrient(nutrition.getFiber(), grams);
-                totalVitaminD += scaleNutrient(nutrition.getVitaminD(), grams);
-                totalVitaminE += scaleNutrient(nutrition.getVitaminE(), grams);
-            }
+    /** Null totals mean "no ingredients", which stays a null nutrition block on the response. */
+    private ResponseNutrition toResponseNutrition(NutritionCalculator.NutritionTotals totals) {
+        if (totals == null) {
+            return null;
         }
-
-        // Calculate calories from macros (4 cal/g for carbs and protein, 9 cal/g for fat)
-        int totalCalories = (totalCarbs * 4) + (totalProtein * 4) + (totalFat * 9);
-
         return ResponseNutrition.builder()
-                .calories(totalCalories)
-                .carbohydrate(totalCarbs)
-                .fat(totalFat)
-                .protein(totalProtein)
-                .sugar(totalSugar)
-                .fiber(totalFiber)
-                .vitaminD(totalVitaminD)
-                .vitaminE(totalVitaminE)
+                .calories(totals.calories())
+                .carbohydrate(totals.carbohydrate())
+                .fat(totals.fat())
+                .protein(totals.protein())
+                .sugar(totals.sugar())
+                .fiber(totals.fiber())
+                .vitaminD(totals.vitaminD())
+                .vitaminE(totals.vitaminE())
                 .build();
-    }
-
-    private FlavorTotals calculateTotalFlavor(List<com.seibel.cpss.common.domain.SaladFoodIngredient> ingredients) {
-        FlavorTotals totals = new FlavorTotals();
-
-        if (ingredients == null || ingredients.isEmpty()) {
-            return totals;
-        }
-
-        for (com.seibel.cpss.common.domain.SaladFoodIngredient ingredient : ingredients) {
-            if (ingredient.getFood() != null) {
-                com.seibel.cpss.common.domain.Food food = ingredient.getFood();
-                int grams = ingredient.getGrams();
-
-                // Scale flavor values by grams (flavor is per 100g)
-                totals.totalCrunch += scaleFlavor(food.getCrunch(), grams);
-                totals.totalPunch += scaleFlavor(food.getPunch(), grams);
-                totals.totalSweet += scaleFlavor(food.getSweet(), grams);
-                totals.totalSavory += scaleFlavor(food.getSavory(), grams);
-            }
-        }
-
-        return totals;
-    }
-
-    private static class FlavorTotals {
-        int totalCrunch = 0;
-        int totalPunch = 0;
-        int totalSweet = 0;
-        int totalSavory = 0;
-    }
-
-    private int scaleNutrient(Integer nutrientPer100g, int grams) {
-        if (nutrientPer100g == null) {
-            return 0;
-        }
-        // Scale from per-100g to actual grams
-        return (nutrientPer100g * grams) / 100;
-    }
-
-    private int scaleFlavor(Integer flavorPer100g, int grams) {
-        if (flavorPer100g == null) {
-            return 0;
-        }
-        // Scale from per-100g to actual grams
-        return (flavorPer100g * grams) / 100;
     }
 }
