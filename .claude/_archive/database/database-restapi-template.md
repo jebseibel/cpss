@@ -1,3 +1,26 @@
+# REST API Template — Original Design Notes
+
+> **Historical document. Superseded — do not follow this to generate code.**
+>
+> These are the original notes working out the layered-scaffold idea, written before it became
+> tooling. The idea described here as "Next Steps" (a Gradle task, a template engine, FreeMarker
+> vs Velocity) is **not** how it was eventually built: the pattern lives as checked-in skills
+> instead, which is a better fit because the rules that matter are prose judgments, not template
+> substitutions. See `DESIGN_DECISIONS.md` §11.
+>
+> **Use these instead:**
+> - `.claude/skills/database-restapi-template/SKILL.md` — the 9-file scaffold
+> - `.claude/skills/database-restapi-testing/SKILL.md` — the 3 test classes + builder methods
+> - `.claude/skills/entity-full-stack/SKILL.md` — both, chained
+> - `../database/restapi-template.md` — the *modification* checklist for an existing entity
+>
+> **Retargeted 2026-08-12**: package names were `com.seibel.scheduler` / `com.seibel.basicspring`
+> from earlier projects and are now `com.seibel.cpss`; the multi-module entity path
+> (`...database.database.db.entity`) is collapsed to CPSS's single-module
+> `com.seibel.cpss.database.db.entity`. The shared test builder is `DomainBuilderDatabase`.
+>
+> Kept for provenance — it records why the pattern has the shape it does, and the reasoning is
+> still sound even though the delivery mechanism changed.
 
 ## Project Goal
 I am writing lots and lots of the same kind of code in my Java, Spring, Gradle projects. 
@@ -12,14 +35,14 @@ omain objects in a common place, and Entity objects in the database area. I have
 
 ## Generated Artifacts (per entity)
 
-### 1. **Domain Layer** (`com.seibel.scheduler.common.domain`)
+### 1. **Domain Layer** (`com.seibel.cpss.common.domain`)
 - `{Entity}.java` - Business domain object
     - Extends `BaseDomain` (inherits: id, extid, createdAt, updatedAt, deletedAt, active)
     - Uses `@Data`, `@SuperBuilder`, `@NoArgsConstructor`, `@AllArgsConstructor`, `@EqualsAndHashCode(callSuper = true)`
         - Contains only business-specific fields
         - **Input source for generation**
 
-### 2. **Web Layer - Request DTOs** (`com.seibel.scheduler.web.request`)
+### 2. **Web Layer - Request DTOs** (`com.seibel.cpss.web.request`)
 - `Request{Entity}Create.java` - Create operation DTO
     - Extends `BaseRequest`
         - Uses `@Data`, `@EqualsAndHashCode(callSuper = true)`
@@ -32,13 +55,13 @@ omain objects in a common place, and Entity objects in the database area. I have
         - All fields optional (nullable)
     - Only `@Size` validations (no `@NotEmpty`)
 
-### 3. **Web Layer - Response DTO** (`com.seibel.scheduler.web.response`)
+### 3. **Web Layer - Response DTO** (`com.seibel.cpss.web.response`)
 - `Response{Entity}.java` - Outgoing data
     - Uses `@Data`, `@Builder`
         - Contains `extid` plus all business fields
     - No validation annotations
 
-### 4. **Entity Layer** (`com.seibel.scheduler.database.database.db.entity`)
+### 4. **Entity Layer** (`com.seibel.cpss.database.db.entity`)
 - `{Entity}Db.java` - JPA entity
     - Extends `BaseDb` (inherits: id, extid, createdAt, updatedAt, deletedAt, active with JPA annotations)
     - Uses `@Data`, `@EqualsAndHashCode(callSuper = true)`, `@Entity`, `@Table(name = "{entity_lowercase}")`
@@ -49,14 +72,14 @@ omain objects in a common place, and Entity objects in the database area. I have
       - `nullable` flag  
       - `unique` flag (where applicable)
 
-### 5. **Mapper** (`com.seibel.scheduler.database.database.db.mapper`)
+### 5. **Mapper** (`com.seibel.cpss.database.db.mapper`)
 - `{Entity}Mapper.java` - Object conversions
     - Uses `@Component`, `@NoArgsConstructor`
         - Contains private `ModelMapper` instance
     - Methods: `toModel()`, `toDb()`, `toModelList()`, `toDbList()`
         - Handles null checks in list methods
 
-### 6. **Repository** (`com.seibel.scheduler.database.database.db.repository`)
+### 6. **Repository** (`com.seibel.cpss.database.db.repository`)
 - `{Entity}Repository.java` - Data access interface
     - Uses `@Repository`
         - Extends `ListCrudRepository<{Entity}Db, Long>`
@@ -66,7 +89,7 @@ omain objects in a common place, and Entity objects in the database area. I have
             - `boolean existsByExtid(String extid)`
             - Additional `findBy{UniqueField}()` methods for unique business fields
 
-### 7. **Database Service** (`com.seibel.scheduler.database.database.db.service`)
+### 7. **Database Service** (`com.seibel.cpss.database.db.service`)
 - `{Entity}DbService.java` - Database operations layer
     - Uses `@Slf4j`, `@Service`
         - Extends `BaseDbService` (passes entity name "{Entity}Db" to constructor)
@@ -108,12 +131,12 @@ omain objects in a common place, and Entity objects in the database area. I have
         - `getFoundMessage(extid)`, `getFoundFailureMessage(extid)`, `getFoundMessageByType(type, count)`
         - `handleException(operation, extid, e)` for standardized exception handling
 
-### 8. **Business Service** (`com.seibel.scheduler.service`)
+### 8. **Business Service** (`com.seibel.cpss.service`)
 - `{Entity}Service.java` - Business logic layer
     - Uses `@Slf4j`, `@Service`
     - Extends `BaseService` (sets `thisName` to "{Entity}" in constructor)
     - Constructor-injected DbService
-    - **Import required:** `import com.viro.database.exceptions.DatabaseFailureException;`
+    - **Import required:** `import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;`
     - **Pattern for all methods:**
         - Validate inputs using `requireNonNull()` / `requireNonBlank()`
         - Log operation with `log.info()`
@@ -128,14 +151,14 @@ omain objects in a common place, and Entity objects in the database area. I have
         - `findByActive(ActiveEnum activeEnum) throws DatabaseFailureException` - validates enum, returns List<Domain>
     - No try-catch blocks needed - exceptions propagate to controller
 
-### 9. **Controller & Converter** (`com.seibel.scheduler.web.controller`)
+### 9. **Controller & Converter** (`com.seibel.cpss.web.controller`)
 - `{Entity}Controller.java` - REST API endpoints and DTO conversion (both classes in same file)
 
 #### Public Controller Class
 - `{Entity}Controller` - REST API endpoints
     - Uses `@RestController`, `@RequestMapping("/api/{entity_lowercase}")`, `@Validated`
     - Constructor-injected business service and converter
-    - **Import required:** `import com.viro.database.exceptions.DatabaseFailureException;`
+    - **Import required:** `import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;`
     - **Endpoints (all declare `throws DatabaseFailureException`):**
         - `GET /` - getAll() throws DatabaseFailureException → List<Response{Entity}>
           - Direct service call, no additional error handling
@@ -196,7 +219,7 @@ omain objects in a common place, and Entity objects in the database area. I have
         - Business fields mapped
         - List conversions work correctly
     - Uses `assertEquals()` assertions
-    - **Uses DomainBuilderSystemDatabase helper to create test objects**
+    - **Uses DomainBuilderDatabase helper to create test objects**
 
 ### 11. **Repository Tests** (`test/.../database.database.db.repository`)
 - `{Entity}RepositoryTest.java` - Integration tests for repository
@@ -214,7 +237,7 @@ omain objects in a common place, and Entity objects in the database area. I have
       - Additional `findBy{UniqueField}()` methods for unique business fields
       - `deleteAllInBatch()` - batch deletion
     - Uses `assertAll()`, `assertEquals()`, `assertNotNull()`, `assertTrue()`, `assertFalse()` assertions
-    - **Uses DomainBuilderSystemDatabase helper to create test objects**
+    - **Uses DomainBuilderDatabase helper to create test objects**
 
 ### 12. **Database Service Tests** (`test/.../database.database.db.service`)
 - `{Entity}DbServiceTest.java` - Integration tests for database service
@@ -239,7 +262,7 @@ omain objects in a common place, and Entity objects in the database area. I have
         - **DeleteTests:** Soft delete behavior, error cases
         - **FindTests:** Find by extid, findAll, findByActive
     - Uses `assertEquals()`, `assertNotNull()`, `assertTrue()`, `assertThrows()` assertions
-    - **Uses DomainBuilderSystemDatabase helper to create test objects**
+    - **Uses DomainBuilderDatabase helper to create test objects**
 
 ## Test Utility Classes
 
@@ -308,8 +331,8 @@ public abstract class DomainBuilderBase extends DomainBuilderUtils {
 - Sets active status to ACTIVE
 - Ensures deletedAt is null (for non-deleted test entities)
 
-### 13. **DomainBuilderSystemDatabase** (`test/.../testutils`)
-- `DomainBuilderSystemDatabase.java` - Entity-specific test object builder methods
+### 13. **DomainBuilderDatabase** (`test/.../testutils`)
+- `DomainBuilderDatabase.java` - Entity-specific test object builder methods
 - **Generated with methods for each entity**
 - Extends `DomainBuilderBase`
 
@@ -467,10 +490,10 @@ For each Domain class input, generate all 12 files plus builder methods:
 10. Mapper Test class
 11. Repository Test class
 12. Database Service Test class
-13. **DomainBuilderSystemDatabase methods** (append to existing shared class)
+13. **DomainBuilderDatabase methods** (append to existing shared class)
 
 ### Configuration Requirements
-- Package base path: `com.seibel.basicspring`
+- Package base path: `com.seibel.cpss`
 - Entity naming convention
 - Field naming conventions (camelCase → snake_case)
 - Default field constraints (lengths, nullable, unique)
@@ -493,7 +516,7 @@ For each Domain class input, generate all 12 files plus builder methods:
 ## Example Domain Input
 
 ```java  
-package com.seibel.scheduler.common.domain;  
+package com.seibel.cpss.common.domain;  
   
 import lombok.AllArgsConstructor;  
 import lombok.Data;  

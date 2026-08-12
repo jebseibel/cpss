@@ -50,6 +50,9 @@ public class DataLoader implements CommandLineRunner {
 
     private static final String DATA_PATH = "db/data/";
 
+    /** Foods that found no matching nutrition row during linking; checked by validateCatalog(). */
+    private final List<String> unlinkedFoodNames = new ArrayList<>();
+
     // Category list for organizing CSV files
     private static final List<String> CATEGORIES = Arrays.asList(
             "aromatics",
@@ -103,10 +106,11 @@ public class DataLoader implements CommandLineRunner {
 
             log.info("No existing data found. Loading from CSV files...");
 
-            // Load in order: Nutrition -> Food -> Link relationships -> Mixtures -> Salads
+            // Load in order: Nutrition -> Food -> Link relationships -> Validate -> Mixtures -> Salads
             loadNutrition();
             loadFoods();
             linkFoodRelationships();
+            validateCatalog();
             loadMixtures();
             loadSalads();
 
@@ -200,6 +204,9 @@ public class DataLoader implements CommandLineRunner {
                 linkedNutrition++;
                 updated = true;
             } else {
+                // Collected rather than only warned about: a food with no nutrition contributes
+                // zero to every total, so this is validated after loading (see validateCatalog).
+                unlinkedFoodNames.add(food.getName());
                 log.warn("No nutrition profile found for food: {}", food.getName());
             }
 
@@ -209,6 +216,32 @@ public class DataLoader implements CommandLineRunner {
         }
 
         log.info("Linked {} nutrition profiles to food items", linkedNutrition);
+    }
+
+    /**
+     * Fails startup if the loaded catalog has an unrecognized category or an unlinked nutrition
+     * row. Both are silent data errors — see {@link FoodCategoryValidator} for why they are worth
+     * stopping the boot over rather than logging and continuing.
+     */
+    private void validateCatalog() {
+        List<FoodCategoryValidator.FoodCategoryCheck> loaded = foodRepository.findAll().stream()
+                .map(f -> new FoodCategoryValidator.FoodCategoryCheck(f.getName(), f.getCategory()))
+                .toList();
+
+        List<String> problems = new ArrayList<>();
+        problems.addAll(FoodCategoryValidator.validateCategories(loaded));
+        problems.addAll(FoodCategoryValidator.validateNutritionLinks(unlinkedFoodNames));
+
+        if (problems.isEmpty()) {
+            log.info("Catalog validation passed: {} foods, all categories recognized, "
+                    + "all nutrition linked", loaded.size());
+            return;
+        }
+
+        problems.forEach(p -> log.error("CATALOG VALIDATION: {}", p));
+        throw new IllegalStateException(
+                "Food catalog validation failed with " + problems.size() + " problem(s): "
+                        + String.join(" | ", problems));
     }
 
     private void loadMixtures() throws IOException {
