@@ -2,6 +2,7 @@ package com.seibel.cpss.config;
 
 import com.seibel.cpss.security.CustomUserDetailsService;
 import com.seibel.cpss.security.JwtAuthenticationFilter;
+import com.seibel.cpss.security.LoginRateLimitFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final LoginRateLimitFilter loginRateLimitFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -70,7 +72,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                // Ahead of the JWT filter, and therefore ahead of any password hashing: a
+                // locked-out caller must be turned away before reaching bcrypt, or the throttle
+                // still pays the cost of every guess.
+                .addFilterBefore(loginRateLimitFilter, JwtAuthenticationFilter.class);
 
         return http.build();
     }

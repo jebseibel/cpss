@@ -42,6 +42,20 @@ app:
   frontend:
     url: ${FRONTEND_URL:http://localhost:5173}
 
+security:
+  login:
+    # /api/auth/login must stay public - a browser cannot carry a JWT before it has one - so it
+    # is the only unauthenticated door into the app. Unthrottled, an attacker guesses passwords
+    # as fast as the network allows.
+    #
+    # Counts CONSECUTIVE FAILURES per IP+username; a successful login clears the counter, so
+    # mistyping a password twice and then getting it right never locks anyone out.
+    #
+    # 8 sits well above human error and far below useful guessing: someone who has genuinely
+    # forgotten a password tries three or four variations, an attacker needs thousands.
+    max-attempts: ${LOGIN_MAX_ATTEMPTS:8}
+    lockout-minutes: ${LOGIN_LOCKOUT_MINUTES:15}
+
 logging:
   level:
     com.seibel.cpss.loader.DataLoader: INFO
