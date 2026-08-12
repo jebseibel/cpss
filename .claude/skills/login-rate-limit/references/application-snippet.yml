@@ -1,0 +1,19 @@
+# Add to application.yml. Env-var overrides so a deployment can tighten the limit without a
+# rebuild.
+#
+# Defaults: 8 consecutive failures locks an IP out for 15 minutes.
+#
+# 8 is chosen to sit well above human error and far below useful guessing. Someone who has
+# genuinely forgotten a password tries three or four variations; an attacker needs thousands.
+# Lower it to 5 for an app with a small, known user base.
+
+security:
+  login:
+    # /api/auth/login must stay public - the browser cannot carry a token before it has one -
+    # so it is the only unauthenticated door into the app. Unthrottled, an attacker guesses
+    # passwords as fast as the network allows.
+    #
+    # Counts CONSECUTIVE FAILURES per IP; a successful login clears the counter, so mistyping
+    # a password twice and then getting it right never locks anyone out.
+    max-attempts: ${LOGIN_MAX_ATTEMPTS:8}
+    lockout-minutes: ${LOGIN_LOCKOUT_MINUTES:15}
