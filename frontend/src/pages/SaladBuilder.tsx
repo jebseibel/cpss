@@ -3,7 +3,7 @@ import { saladApi, foodApi } from '../services/api';
 import { Salad as SaladIcon, Plus, Trash2, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { SaladRequest, SaladFoodIngredientRequest } from '../types/api';
+import type { SaladRequest, SaladFoodIngredientRequest, Food } from '../types/api';
 
 export default function SaladBuilder() {
     const { extid } = useParams<{ extid: string }>();
@@ -12,6 +12,7 @@ export default function SaladBuilder() {
     const [saladName, setSaladName] = useState('');
     const [saladDescription, setSaladDescription] = useState('');
     const [ingredients, setIngredients] = useState<SaladFoodIngredientRequest[]>([]);
+    const [ingredientFilter, setIngredientFilter] = useState<string>('all');
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
@@ -51,6 +52,19 @@ export default function SaladBuilder() {
             return food?.foundation === true;
         }).length;
     }, [ingredients, foods]);
+
+    const categories = useMemo(() => {
+        if (!foods) return [];
+        const cats = new Set(foods.map((f: Food) => f.category).filter(Boolean) as string[]);
+        return Array.from(cats).sort();
+    }, [foods]);
+
+    const filteredFoods = useMemo(() => {
+        if (!foods) return [];
+        if (ingredientFilter === 'all') return foods;
+        if (ingredientFilter === 'foundation') return foods.filter((f: Food) => f.foundation === true);
+        return foods.filter((f: Food) => f.category === ingredientFilter);
+    }, [foods, ingredientFilter]);
 
     const createSaladMutation = useMutation({
         mutationFn: (request: SaladRequest) => saladApi.create(request),
@@ -240,6 +254,23 @@ export default function SaladBuilder() {
                             </button>
                         </div>
 
+                        {/* Filter Buttons */}
+                        <div className="flex flex-wrap gap-2 mb-3">
+                            {(['all', 'foundation', ...categories] as string[]).map((filter) => (
+                                <button
+                                    key={filter}
+                                    onClick={() => setIngredientFilter(filter)}
+                                    className={`px-3 py-1 text-sm rounded-md ${
+                                        ingredientFilter === filter
+                                            ? 'bg-green-600 text-white'
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    }`}
+                                >
+                                    {filter === 'all' ? 'All' : filter === 'foundation' ? '🥬 Foundation' : filter}
+                                </button>
+                            ))}
+                        </div>
+
                         {ingredients.length === 0 ? (
                             <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
                                 <SaladIcon className="mx-auto h-12 w-12 text-gray-400" />
@@ -262,8 +293,7 @@ export default function SaladBuilder() {
                                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-sm border px-3 py-2"
                                             >
                                                 <option value="">Select food...</option>
-                                                {foods?.map((food) => {
-                                                    // Disable if this food is already selected in another ingredient
+                                                {filteredFoods.map((food) => {
                                                     const isAlreadySelected = ingredients.some(
                                                         (ing, idx) => idx !== index && ing.foodExtid === food.extid
                                                     );
