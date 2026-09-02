@@ -3,6 +3,7 @@ import { nutritionApi } from '../services/api';
 import { Scale, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import type { Nutrition } from '../types/api';
+import NutritionDisclaimer from '../components/NutritionDisclaimer';
 
 type SortField = 'name' | 'carbohydrate' | 'fat' | 'protein' | 'sugar' | 'vitaminD' | 'vitaminE';
 type SortDirection = 'asc' | 'desc' | null;
@@ -89,6 +90,8 @@ export default function Nutrition() {
                     Nutrition Profiles
                 </h1>
             </div>
+
+            <NutritionDisclaimer />
 
             {/* Desktop Table View */}
             <div className="hidden sm:block bg-white shadow overflow-hidden sm:rounded-lg">

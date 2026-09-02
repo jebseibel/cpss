@@ -364,11 +364,11 @@ Test suite: **101 → 125 tests, 0 failures.**
    existing sessions. Now the most significant security item.
 2. **Toxicity and diabetes warnings not implemented.** Required per `.claude/CLAUDE.md`;
    the app shows sugar with no context. The one gap where being incomplete could mislead.
-3. **Integer truncation in nutrition scaling.** See `DOMAIN_MODEL.md` — small quantities
+3. **Integer truncation in nutrition scaling.** See `.claude/_archive/database/DOMAIN_MODEL.md` — small quantities
    round to zero. Needs `BigDecimal` through domain, entity, and schema. Now asserted in
    `NutritionCalculatorTest` so a future fix produces a deliberate, visible test failure
    rather than silently changing what the app reports.
 4. **No notification email on password change** (§8), so a successful takeover is silent.
 5. **Unbounded list endpoints** (§9).
-6. **Mixtures cannot be added to salads.** Designed in `.claude/salad-plan.md`, not built;
-   the open question is the second scaling denominator. See `DOMAIN_MODEL.md`.
+6. **Mixtures cannot be added to salads.** Designed in `.claude/_archive/salads/salad-plan.md`, not built;
+   the open question is the second scaling denominator. See `.claude/_archive/database/DOMAIN_MODEL.md`.

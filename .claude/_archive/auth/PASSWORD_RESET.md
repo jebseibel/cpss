@@ -8,13 +8,13 @@ The password reset feature allows users to securely reset their password if they
 
 ### Frontend Flow
 
-1. **Forgot Password Page** (`frontend/src/pages/ForgotPassword.tsx`)
+1. **Forgot Password Page** (`../../../frontend/src/pages/ForgotPassword.tsx`)
    - User enters their email address
    - Calls `/auth/forgot-password` endpoint
    - Shows generic success message: "If that email exists, a reset link has been sent"
    - Does not reveal whether the email is registered (security best practice)
 
-2. **Reset Password Page** (`frontend/src/pages/ResetPassword.tsx`)
+2. **Reset Password Page** (`../../../frontend/src/pages/ResetPassword.tsx`)
    - User clicks the reset link from their email: `/reset-password?token=<uuid>`
    - Extracts the token from the URL query parameter
    - User enters new password and confirmation password
@@ -118,7 +118,7 @@ The password reset feature allows users to securely reset their password if they
 
 ### EmailService
 
-Handles all email communication. Located at: `src/main/java/com/seibel/cpss/service/EmailService.java`
+Handles all email communication. Located at: `../../../src/main/java/com/seibel/cpss/service/EmailService.java`
 
 **Configuration:**
 - Host: `${MAIL_HOST:smtp.gmail.com}`
@@ -142,7 +142,7 @@ Handles all email communication. Located at: `src/main/java/com/seibel/cpss/serv
 
 ### PasswordResetService
 
-Core business logic for password reset. Located at: `src/main/java/com/seibel/cpss/service/PasswordResetService.java`
+Core business logic for password reset. Located at: `../../../src/main/java/com/seibel/cpss/service/PasswordResetService.java`
 
 **Configuration:**
 - Frontend URL: `${FRONTEND_URL:http://localhost:5173}`
@@ -311,26 +311,26 @@ Response: 400 Bad Request
 ## Files Involved
 
 ### Frontend
-- `frontend/src/pages/ForgotPassword.tsx` - Forgot password form
-- `frontend/src/pages/ForgotUsername.tsx` - Forgot username form
-- `frontend/src/pages/ResetPassword.tsx` - Reset password form
-- `frontend/src/services/api.ts` - API integration (three new methods)
+- `../../../frontend/src/pages/ForgotPassword.tsx` - Forgot password form
+- `../../../frontend/src/pages/ForgotUsername.tsx` - Forgot username form
+- `../../../frontend/src/pages/ResetPassword.tsx` - Reset password form
+- `../../../frontend/src/services/api.ts` - API integration (three new methods)
 
 ### Backend
-- `src/main/java/com/seibel/cpss/service/EmailService.java` - Email handling
-- `src/main/java/com/seibel/cpss/service/PasswordResetService.java` - Password reset logic
-- `src/main/java/com/seibel/cpss/web/controller/AuthController.java` - API endpoints
-- `src/main/java/com/seibel/cpss/common/domain/PasswordResetToken.java` - Domain model
-- `src/main/java/com/seibel/cpss/database/db/entity/PasswordResetTokenDb.java` - Database entity
-- `src/main/java/com/seibel/cpss/database/db/service/PasswordResetTokenDbService.java` - Database service
-- `src/main/java/com/seibel/cpss/database/db/repository/PasswordResetTokenRepository.java` - Database repository
-- `src/main/java/com/seibel/cpss/web/request/RequestForgotPassword.java` - Request DTO
-- `src/main/java/com/seibel/cpss/web/request/RequestForgotUsername.java` - Request DTO
-- `src/main/java/com/seibel/cpss/web/request/RequestResetPassword.java` - Request DTO
-- `src/main/java/com/seibel/cpss/web/response/ResponseMessage.java` - Response DTO
+- `../../../src/main/java/com/seibel/cpss/service/EmailService.java` - Email handling
+- `../../../src/main/java/com/seibel/cpss/service/PasswordResetService.java` - Password reset logic
+- `../../../src/main/java/com/seibel/cpss/web/controller/AuthController.java` - API endpoints
+- `../../../src/main/java/com/seibel/cpss/common/domain/PasswordResetToken.java` - Domain model
+- `../../../src/main/java/com/seibel/cpss/database/db/entity/PasswordResetTokenDb.java` - Database entity
+- `../../../src/main/java/com/seibel/cpss/database/db/service/PasswordResetTokenDbService.java` - Database service
+- `../../../src/main/java/com/seibel/cpss/database/db/repository/PasswordResetTokenRepository.java` - Database repository
+- `../../../src/main/java/com/seibel/cpss/web/request/RequestForgotPassword.java` - Request DTO
+- `../../../src/main/java/com/seibel/cpss/web/request/RequestForgotUsername.java` - Request DTO
+- `../../../src/main/java/com/seibel/cpss/web/request/RequestResetPassword.java` - Request DTO
+- `../../../src/main/java/com/seibel/cpss/web/response/ResponseMessage.java` - Response DTO
 
 ### Database
-- `src/main/resources/db/changelog/changes/020-create-password-reset-token.yaml` - Liquibase migration
+- `../../../src/main/resources/db/changelog/changes/020-create-password-reset-token.yaml` - Liquibase migration
 
 ### Configuration
-- `src/main/resources/application.yml` - Email and app configuration
+- `../../../src/main/resources/application.yml` - Email and app configuration

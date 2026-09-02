@@ -26,7 +26,7 @@ decisions that a straightforward "food tracker" schema would not have produced:
 ## Core entities
 
 All domain models live in `common/domain/` and extend `BaseDomain`
-(`src/main/java/com/seibel/cpss/common/domain/BaseDomain.java`), which supplies:
+(`../../../src/main/java/com/seibel/cpss/common/domain/BaseDomain.java`), which supplies:
 
 | Field | Purpose |
 | --- | --- |
@@ -62,7 +62,7 @@ food in the same way carbohydrate content is — an almond is crunchy whether or
 puts it in a salad. Modeling them as a separate `Flavor` entity would add a join and an
 identity to something that has no independent existence.
 
-> **Note on older docs:** `.claude/ARCHITECTURE.md` describes `Flavor` and `Serving` as
+> **Note on older docs:** `../../ARCHITECTURE.md` describes `Flavor` and `Serving` as
 > separate entities with one-to-one relationships to Food. Neither exists in the code
 > today. Flavor was folded into `Food` as the four integer columns above, and the serving
 > table was dropped outright in changeset `014-drop-serving-table.yaml`, replaced by the
@@ -151,7 +151,7 @@ division in `scaleNutrient`, small quantities truncate toward zero:
 - Any ingredient contributing under 100g of a single-digit nutrient rounds away entirely.
 
 Micronutrients are hit hardest. The vegetable CSV
-(`src/main/resources/db/data/40-nutrition-vegetables.csv`) shows most vitamin D and E
+(`../../../src/main/resources/db/data/40-nutrition-vegetables.csv`) shows most vitamin D and E
 values as `0`–`2` per 100g, so at realistic salad portions they contribute nothing to the
 total. The truncation also compounds — it's applied per ingredient, then summed, so a
 ten-ingredient salad can lose meaningful mass.
@@ -231,7 +231,7 @@ ingredient-list cases.
 
 ## Deliberately not built
 
-**Mixtures cannot be added to salads.** The design (`.claude/salad-plan.md`) specifies a
+**Mixtures cannot be added to salads.** The design (`../salads/salad-plan.md`) specifies a
 `salad_mixture_ingredient` table and a full scaling formula for it, and neither exists.
 A salad is food ingredients only.
 
@@ -242,7 +242,7 @@ denominator. Given the integer-truncation problem above, adding a second divisio
 would compound the precision loss. That's the honest reason it's still open.
 
 **Toxicity and health warnings are not implemented.** Flagged as required in
-`.claude/CLAUDE.md`: warnings for possible side effects, and diabetes-relevant guidance.
+`../../CLAUDE.md`: warnings for possible side effects, and diabetes-relevant guidance.
 The app currently presents sugar as a bare number with no context. This is the highest
 -priority outstanding domain gap, because it's the one where being incomplete could
 actually mislead someone.

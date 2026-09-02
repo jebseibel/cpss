@@ -32,7 +32,7 @@ Food/salad management system with JWT authentication built on Spring Boot + Reac
 > integer columns (crunch, punch, sweet, savory) — they are intrinsic properties of a food, not
 > a separately-identified thing. The `Serving` table was dropped in changeset
 > `014-drop-serving-table.yaml` and replaced by the single `typicalServingGrams` field, once
-> per-100g normalization made the unit conversions unnecessary. See `DOMAIN_MODEL.md`.
+> per-100g normalization made the unit conversions unnecessary. See `_archive/database/DOMAIN_MODEL.md`.
 
 ### Components
 - **Repositories**: Spring Data JPA interfaces
@@ -150,7 +150,7 @@ is rejected before any BCrypt hashing happens. It also throttles `/forgot-passwo
 ## Known Limitations
 - **Nutrition uses integer arithmetic end to end**, so small quantities truncate toward zero —
   a food with 5g carbohydrate per 100g contributes 0 at a 10g portion. Documented in
-  `DOMAIN_MODEL.md` and asserted in `NutritionCalculatorTest`.
+  `_archive/database/DOMAIN_MODEL.md` and asserted in `NutritionCalculatorTest`.
 - **JWTs cannot be revoked before their 24-hour expiry**, and a password reset does not
   invalidate outstanding tokens.
 - **Toxicity and diabetes warnings are not implemented** (required per `CLAUDE.md`).

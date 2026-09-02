@@ -296,26 +296,26 @@ Calculate calories: (carbs × 4) + (protein × 4) + (fat × 9)
 1. ✓ **Fixed SaladMapper relationship mapping**
    - Added `SaladFoodIngredientMapper` injection
    - Now properly maps `foodIngredients` in `toModel()` method
-   - File: `src/main/java/com/seibel/cpss/database/db/mapper/SaladMapper.java`
+   - File: `../../../src/main/java/com/seibel/cpss/database/db/mapper/SaladMapper.java`
 
 2. ✓ **Optimized foundation validation (N+1 query fix)**
    - Added `findByExtidIn()` to `FoodRepository`, `FoodService`, and `FoodDbService`
    - Updated `SaladService.validateFoundationCount()` to use batch query
    - Reduced from N individual queries to 1 batch query
    - Files modified:
-     - `src/main/java/com/seibel/cpss/service/SaladService.java`
-     - `src/main/java/com/seibel/cpss/database/db/repository/FoodRepository.java`
-     - `src/main/java/com/seibel/cpss/service/FoodService.java`
-     - `src/main/java/com/seibel/cpss/database/db/service/FoodDbService.java`
+     - `../../../src/main/java/com/seibel/cpss/service/SaladService.java`
+     - `../../../src/main/java/com/seibel/cpss/database/db/repository/FoodRepository.java`
+     - `../../../src/main/java/com/seibel/cpss/service/FoodService.java`
+     - `../../../src/main/java/com/seibel/cpss/database/db/service/FoodDbService.java`
 
 3. ✓ **Added name validation to SaladService update**
    - Added `requireNonBlank(salad.getName(), "name")` in update method
    - Consistent validation with create method
-   - File: `src/main/java/com/seibel/cpss/service/SaladService.java`
+   - File: `../../../src/main/java/com/seibel/cpss/service/SaladService.java`
 
 4. ✓ **Updated unit tests**
    - All tests updated to mock `findByExtidIn()` instead of `findByExtid()`
-   - File: `src/test/java/com/seibel/cpss/service/SaladServiceTest.java`
+   - File: `../../../src/test/java/com/seibel/cpss/service/SaladServiceTest.java`
    - Status: 101 tests passing, BUILD SUCCESSFUL
 
 ### Frontend - COMPLETED ✓

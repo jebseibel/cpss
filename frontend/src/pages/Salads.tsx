@@ -4,6 +4,7 @@ import { Salad as SaladIcon, ArrowUpDown, ArrowUp, ArrowDown, ChevronRight, Chev
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Salad, SaladRequest } from '../types/api';
+import NutritionDisclaimer from '../components/NutritionDisclaimer';
 
 type SortField = 'name' | 'description' | 'userExtid';
 type SortDirection = 'asc' | 'desc' | null;
@@ -176,6 +177,8 @@ export default function Salads() {
                     Create Salad
                 </button>
             </div>
+
+            <NutritionDisclaimer />
 
             {/* Filter Tabs */}
             <div className="mb-4">

@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_food_warning_tables
+      author: claude
+      labels: food_warning
+      changes:
+
+        # Food Warning Table
+        # Holds agent-drafted health notes for a food. Nothing here is served to
+        # users until a human moves status from 'pending' to 'approved'.
+        - createTable:
+            tableName: food_warning
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true }, defaultValueComputed: "(UUID())" }
+              - column: { name: food_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: category, type: varchar(30), constraints: { nullable: false } }
+              - column: { name: severity, type: varchar(20), constraints: { nullable: false } }
+              - column: { name: applies_to, type: varchar(200) }
+              - column: { name: warning_text, type: varchar(500), constraints: { nullable: false } }
+              - column: { name: sources, type: text }
+              # Quoted: inside an inline flow map, YAML splits decimal(3,2) at the comma.
+              - column: { name: confidence, type: "decimal(3,2)" }
+              - column: { name: status, type: varchar(20), constraints: { nullable: false }, defaultValue: pending }
+              - column: { name: reviewed_by, type: varchar(36) }
+              - column: { name: reviewed_at, type: datetime }
+              - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: datetime }
+              - column: { name: deleted_at, type: datetime }
+              - column: { name: active, type: int, defaultValueNumeric: 1 }
+
+        - createIndex:
+            indexName: idx_food_warning_food_id
+            tableName: food_warning
+            columns:
+              - column: { name: food_id }
+
+        # Serving path filters on status; approved rows are the only ones exposed.
+        - createIndex:
+            indexName: idx_food_warning_status
+            tableName: food_warning
+            columns:
+              - column: { name: status }
+
+        - addForeignKeyConstraint:
+            constraintName: fk_food_warning_food
+            baseTableName: food_warning
+            baseColumnNames: food_id
+            referencedTableName: food
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        # Food Warning Assessment Table
+        # Records every food the agent looked at, including the ones it decided
+        # needed nothing. Abstention is a recorded fact, not an absence of rows,
+        # so a re-run knows what it already examined.
+        - createTable:
+            tableName: food_warning_assessment
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true }, defaultValueComputed: "(UUID())" }
+              - column: { name: food_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: outcome, type: varchar(20), constraints: { nullable: false } }
+              - column: { name: reasoning, type: varchar(500) }
+              - column: { name: model, type: varchar(50) }
+              - column: { name: tool_calls_used, type: int, defaultValueNumeric: 0 }
+              - column: { name: turns_used, type: int, defaultValueNumeric: 0 }
+              - column: { name: assessed_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: datetime }
+              - column: { name: deleted_at, type: datetime }
+              - column: { name: active, type: int, defaultValueNumeric: 1 }
+
+        - createIndex:
+            indexName: idx_food_warning_assessment_food_id
+            tableName: food_warning_assessment
+            columns:
+              - column: { name: food_id }
+
+        - addForeignKeyConstraint:
+            constraintName: fk_food_warning_assessment_food
+            baseTableName: food_warning_assessment
+            baseColumnNames: food_id
+            referencedTableName: food
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE

@@ -4,6 +4,7 @@ import { Blend, ArrowUpDown, ArrowUp, ArrowDown, ChevronRight, ChevronDown, Copy
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Mixture, MixtureRequest } from '../types/api';
+import NutritionDisclaimer from '../components/NutritionDisclaimer';
 
 type SortField = 'name' | 'description' | 'userExtid';
 type SortDirection = 'asc' | 'desc' | null;
@@ -217,6 +218,8 @@ export default function Mixtures() {
                     Make a Mixture
                 </button>
             </div>
+
+            <NutritionDisclaimer />
 
             {/* Desktop Table View */}
             <div className="hidden sm:block bg-white shadow overflow-hidden sm:rounded-lg">
